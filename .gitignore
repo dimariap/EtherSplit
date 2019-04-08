@@ -1,8 +1,7 @@
 .idea/*
 .xml
 .pyc
-
-*.sqlite3
+.sqlite3
 EtherSplit/__pycache__/*
 EtherSplitApp/__pycache__/*
-EtherSplitApp/migrations/__pycache__/__init__.cpython-36.pyc
+EtherSplitApp/migrations/__pycache__/*
