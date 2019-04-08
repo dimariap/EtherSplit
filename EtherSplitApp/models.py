@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Character(models.Model):
-    user = User
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # TODO implement a custom user model
     name = models.CharField(max_length=32, unique=True)
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
@@ -26,6 +26,7 @@ class Ability(models.Model):
     damage = models.CharField(max_length=4, blank=True, default='')
     aoe_distance = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
+    # TODO add cool down
     turns = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
     description = models.TextField(max_length=500, blank=True, default='')
     is_super = models.BooleanField(default=False)
@@ -33,6 +34,9 @@ class Ability(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Abilities'
 
 
 class Weapon(models.Model):
@@ -79,5 +83,8 @@ class Gear(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Gear'
 
 # TODO add companion class (define rules first)
