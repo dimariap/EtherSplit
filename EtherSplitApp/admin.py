@@ -1,3 +1,9 @@
 from django.contrib import admin
+from EtherSplitApp.models import *
 
-# Register your models here.
+
+class CharacterAdmin(admin.ModelAdmin):
+    list_display = ('user', 'name')
+
+
+admin.site.register(Character, CharacterAdmin)
