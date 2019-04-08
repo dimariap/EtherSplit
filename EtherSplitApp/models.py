@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 
 class Character(models.Model):
     user = User
-    name = models.CharField(max_length=32,)
+    name = models.CharField(max_length=32, unique=True)
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.IntegerField(max_length=5, blank=True, default='')
+    initiative = models.CharField(max_length=3, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_alive = models.BooleanField(default=True)
 
@@ -24,7 +25,9 @@ class Ability(models.Model):
     damage = models.CharField(max_length=4, blank=True, default='')
     aoe_distance = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
+    turns = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
     description = models.TextField(max_length=500)
+    is_super = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -43,7 +46,23 @@ class Weapon(models.Model):
         ('long', 'Long'),
         ('unknown', 'Unknown')
     ))
-    ammo = models.CharField(max_length=5, blank=True, default='')
+    damage = models.CharField(max_length=4, blank=True, default='')
+    ammo = models.CharField(max_length=5, blank=True, default='', help_text='Put \'melee\' if melee weapon.')
+    description = models.TextField(max_length=500)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Item(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    name = models.CharField(max_length=32,)
+    damage = models.CharField(max_length=4, blank=True, default='')
+    aoe_distance = models.CharField(max_length=4, blank=True, default='')
+    charges = models.CharField(max_length=4, blank=True, default='')
+    description = models.TextField(max_length=500)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
