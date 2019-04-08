@@ -6,12 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/">
-    <title>MeritDirect Portal</title>
+    <title>Ether Split</title>
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/Contact-Form-Clean.css' %}" rel="stylesheet">
     <link href="{% static 'css/Footer-Basic.css' %}" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/MeritDirect_favicon.ico' %}"/>
+    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'img/MeritDirect_favicon.ico' %}"/> -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-default navigation-clean">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="/" class="navbar-brand navbar-link">MeritDirect Portal</a>
+                    <a href="/" class="navbar-brand navbar-link">Ether Split</a>
                     <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 </div>
                 <div class="collapse navbar-collapse" id="navcol-1">
@@ -35,8 +35,8 @@
                             {% else %}
                                 <li role="presentation" onClick="javascript:history.go(-1);"><a href="#">Back </a></li>
                             {% endif %}
-                            <li role="presentation"><a href="/tools">Tools </a></li>
-                            <li role="presentation"><a href="/resources">Resources </a></li>
+                            <li role="presentation"><a href="#">Sessions </a></li>
+                            <li role="presentation"><a href="#">Enemies </a></li>
                             <li role="presentation"><a href="/logout">Log Out </a></li>
                         {% else %}
                             <li role="presentation"><a href="/login">Login </a></li>
@@ -63,11 +63,11 @@
                 {% if user.is_authenticated %}
                     <li><a href="/">Home</a></li>
                     <li><a href="#">Legal</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
                 {% endif %}
             </ul>
-             <p class="copyright">Copyright Peter DiMaria © 2017 - {% now "Y" %} All Rights Reserved</p>
+             <p class="copyright">Copyright Ether Split © 2018 - {% now "Y" %} All Rights Reserved</p>
         </footer>
     </div>
 </body>

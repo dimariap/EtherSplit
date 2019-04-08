@@ -8,4 +8,4 @@ def home(request):
     context = {
         # TBD
     }
-    return render(request, 'base.html')
+    return render(request, 'home.html')
