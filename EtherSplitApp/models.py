@@ -6,7 +6,7 @@ class Character(models.Model):
     user = User
     name = models.CharField(max_length=32, unique=True)
     hit_points = models.CharField(max_length=5, blank=True, default='')
-    armor = models.IntegerField(max_length=5, blank=True, default='')
+    armor = models.CharField(max_length=5, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_alive = models.BooleanField(default=True)
@@ -61,6 +61,18 @@ class Item(models.Model):
     damage = models.CharField(max_length=4, blank=True, default='')
     aoe_distance = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
+    description = models.TextField(max_length=500)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Gear(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    name = models.CharField(max_length=32,)
+    hit_points = models.CharField(max_length=5, blank=True, default='')
+    armor = models.IntegerField(max_length=5, blank=True, default='')
     description = models.TextField(max_length=500)
     is_active = models.BooleanField(default=True)
 
