@@ -1,1 +1,1 @@
-# EtherSplit
+# Ether Split
