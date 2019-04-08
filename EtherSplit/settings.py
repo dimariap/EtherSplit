@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'EtherSplitApp.urls'
+ROOT_URLCONF = 'EtherSplit.urls'
 
 TEMPLATES = [
     {
