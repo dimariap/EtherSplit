@@ -1,3 +1,6 @@
 .idea/*
 .xml
 .pyc
+
+*.sqlite3
+EtherSplit/__pycache__/*
