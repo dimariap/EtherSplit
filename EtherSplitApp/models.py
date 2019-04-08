@@ -8,6 +8,7 @@ class Character(models.Model):
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
+    description = models.CharField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_alive = models.BooleanField(default=True)
 
@@ -18,7 +19,7 @@ class Character(models.Model):
 class Ability(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
-    target = models.CharField(max_length=32, choices=(
+    target = models.CharField(max_length=32, blank=True, choices=(
         ('self', 'Self'),
         ('target', 'Target'),
     ))
@@ -26,7 +27,7 @@ class Ability(models.Model):
     aoe_distance = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
     turns = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True, default='')
     is_super = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
@@ -48,7 +49,7 @@ class Weapon(models.Model):
     ))
     damage = models.CharField(max_length=4, blank=True, default='')
     ammo = models.CharField(max_length=5, blank=True, default='', help_text='Put \'melee\' if melee weapon.')
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -61,7 +62,7 @@ class Item(models.Model):
     damage = models.CharField(max_length=4, blank=True, default='')
     aoe_distance = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -72,9 +73,11 @@ class Gear(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
     hit_points = models.CharField(max_length=5, blank=True, default='')
-    armor = models.IntegerField(max_length=5, blank=True, default='')
-    description = models.TextField(max_length=500)
+    armor = models.CharField(max_length=5, blank=True, default='')
+    description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
+# TODO add companion class (define rules first)
