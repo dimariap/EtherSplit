@@ -5,3 +5,4 @@
 EtherSplit/__pycache__/*
 EtherSplitApp/__pycache__/*
 EtherSplitApp/migrations/__pycache__/*
+*.sqlite3
