@@ -5,9 +5,11 @@ from django.contrib.auth.models import User
 class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # TODO implement a custom user model
     name = models.CharField(max_length=32, unique=True)
+    lucky_number = models.CharField(max_length=3, blank=True, default='')
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
+    # maybe add race/gender or other racial attributes
     description = models.CharField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
     is_alive = models.BooleanField(default=True)

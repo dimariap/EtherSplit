@@ -3,7 +3,7 @@ from EtherSplitApp.models import *
 
 
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'hit_points', 'armor', 'initiative', 'is_active', 'is_alive')
+    list_display = ('user', 'name', 'lucky_number', 'hit_points', 'armor', 'initiative', 'is_active', 'is_alive')
 
 
 class AbilityAdmin(admin.ModelAdmin):
