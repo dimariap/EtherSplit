@@ -7,7 +7,7 @@ class CharacterAdmin(admin.ModelAdmin):
 
 
 class AbilityAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'target', 'damage', 'aoe_distance', 'charges', 'turns',
+    list_display = ('character', 'name', 'target', 'damage', 'aoe_radius', 'charges', 'duration',
                     'is_super', 'is_active')
 
 
@@ -16,11 +16,19 @@ class WeaponAdmin(admin.ModelAdmin):
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'damage', 'aoe_distance', 'charges', 'is_active')
+    list_display = ('character', 'name', 'damage', 'aoe_radius', 'charges', 'is_active')
 
 
 class GearAdmin(admin.ModelAdmin):
     list_display = ('character', 'name', 'hit_points', 'armor', 'is_active')
+
+
+class SpellAdmin(admin.ModelAdmin):
+    list_display = ('character', 'name', 'target', 'damage', 'aoe_radius', 'mana_cost', 'duration', 'is_active')
+
+
+class MoneyAdmin(admin.ModelAdmin):
+    list_display = ('character', 'quantity', 'currency')
 
 
 admin.site.register(Character, CharacterAdmin)
@@ -28,3 +36,5 @@ admin.site.register(Ability, AbilityAdmin)
 admin.site.register(Weapon, WeaponAdmin)
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Gear, GearAdmin)
+admin.site.register(Spell, SpellAdmin)
+admin.site.register(Money, MoneyAdmin)

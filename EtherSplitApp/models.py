@@ -26,10 +26,10 @@ class Ability(models.Model):
         ('target', 'Target'),
     ))
     damage = models.CharField(max_length=4, blank=True, default='')
-    aoe_distance = models.CharField(max_length=4, blank=True, default='')
+    aoe_radius = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
     # TODO add cool down
-    turns = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
+    duration = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
     description = models.TextField(max_length=500, blank=True, default='')
     is_super = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -66,7 +66,7 @@ class Item(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
     damage = models.CharField(max_length=4, blank=True, default='')
-    aoe_distance = models.CharField(max_length=4, blank=True, default='')
+    aoe_radius = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
     description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
@@ -88,5 +88,39 @@ class Gear(models.Model):
 
     class Meta:
         verbose_name_plural = 'Gear'
+
+
+class Spell(models.Model):
+    character = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=32,)
+    target = models.CharField(max_length=32, blank=True, choices=(
+        ('self', 'Self'),
+        ('target', 'Target'),
+    ))
+    damage = models.CharField(max_length=4, blank=True, default='')
+    aoe_radius = models.CharField(max_length=4, blank=True, default='')
+    mana_cost = models.CharField(max_length=4, blank=True, default='')
+    # TODO add cool down
+    duration = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
+    description = models.TextField(max_length=500, blank=True, default='')
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Money(models.Model):
+    character = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.CharField(max_length=6, blank=True, default='')
+    currency = models.CharField(max_length=32, blank=True, choices=(
+        ('holla', 'Holla'),
+        ('shi', 'Shi'),
+        ('credit-stick', 'Credit Stick'),
+    ))
+
+    def __str__(self):
+        return self.character, self.quantity, self.currency
+
+# TODO add money class with currency type
 
 # TODO add companion class (define rules first)
