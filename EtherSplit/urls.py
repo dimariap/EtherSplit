@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^sessions/$', sessions, name='sessions'),
     url(r'^sessions/new-session/$', new_session, name='new_session'),
+    url(r'^sessions/(?P<session_id>\d+)/$', session_page, name='session_page'),
     url(r'^rules/$', rules, name='rules'),
     url(r'^characters/$', group_characters, name='group_characters'),
     url(r'^characters/(?P<character_slug>[\w-]+)/$', character_page, name='character_page'),

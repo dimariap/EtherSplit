@@ -64,9 +64,6 @@ def sessions(request):
     group = user.groups.get()  # might error if user is in multiple groups
     session_list = Session.objects.filter(group=group)
 
-    if request.method == 'POST':
-        None
-
     context = {
         'sessions': session_list,
     }
@@ -80,6 +77,7 @@ def new_session(request):
 
     if request.method == 'POST':
         # TODO redirect to new session
+        # TODO give message if form is invalid
         form = form_class(data=request.POST)
 
         if form.is_valid():
@@ -92,6 +90,14 @@ def new_session(request):
             print(session_description)
 
     return render(request, 'new_session.html', {'groups': groups})
+
+
+def session_page(request, session_id):
+    session = Session.objects.get(id=session_id)
+    context = {
+        'session': session
+    }
+    return render(request, 'session_page.html', context)
 
 
 def __calculate_total_armor(character, gear):

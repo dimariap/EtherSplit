@@ -10,7 +10,7 @@
                 <hr />
                 {% for session in sessions %}
                     <div class="col-sm-5">
-                        <h4>{{ session.name }}</h4>
+                        <h4><a href="sessions/{{ session.id }}">{{ session.name }}</a></h4>
                     </div>
                     <div class="col-sm-4">
                         <h4>{{ session.group }}</h4><br />
@@ -28,7 +28,7 @@
         <hr />
         <div class="row">
             <div class="col-sm-12" align="right">
-                <a class="form-group">
+                <div class="form-group">
                     <a href="sessions/new-session"><button class="btn btn-primary">Start New Session </button></a>
                 </div>
             </div>
