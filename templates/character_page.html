@@ -37,18 +37,10 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        {% for ability in abilities %}
-                            {% if not ability.is_super %}
-                                <div class="col-sm-12">
-                                    <h4>{{ ability.name }}</h4><br />
-                                    <p>{{ ability.description }}</p>
-                                    <br />
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+                        {% include "stat_pages/ability_list.html" %}
                     </div>
                     <div class="col-sm-6" id="weapon_list">
-                        {% include "weapon_list.html" %}
+                        {% include "stat_pages/weapon_list.html" %}
                     </div>
                 </div>
 
@@ -61,24 +53,10 @@
 
                 <div class="row">
                         <div class="col-sm-6">
-                            {% for ability in abilities %}
-                                {% if ability.is_super %}
-                                    <div class="col-sm-12">
-                                        <h4>{{ ability.name }}</h4><br />
-                                        <p>{{ ability.description }}</p>
-                                        <br />
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                            {% include "stat_pages/super_ability_list.html" %}
                         </div>
                         <div class="col-sm-6">
-                            {% for spell in spells %}
-                                <div class="col-sm-12">
-                                    <h4>{{ spell.name }}</h4><br />
-                                    <p>{{ spell.description }}</p>
-                                    <br />
-                                </div>
-                            {% endfor %}
+                            {% include "stat_pages/spell_list.html" %}
                         </div>
                     </div>
                 </div>

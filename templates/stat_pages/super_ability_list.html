@@ -1,0 +1,9 @@
+{% for ability in abilities %}
+    {% if ability.is_super %}
+        <div class="col-sm-12">
+            <h4>{{ ability.name }}</h4><br />
+            <p>{{ ability.description }}</p>
+            <br />
+        </div>
+    {% endif %}
+{% endfor %}
