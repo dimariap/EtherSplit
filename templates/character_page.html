@@ -7,6 +7,7 @@
         <div class="row">
             <h2>{{ user.first_name }}'s Character</h2>
         </div>
+
         <div class="row">
             <div class="col-sm-12">
                 {% include "stat_pages/character_stats.html" %}
@@ -20,7 +21,7 @@
                 <hr/>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" id="ability_list">
                         {% include "stat_pages/ability_list.html" %}
                     </div>
                     <div class="col-sm-6" id="weapon_list">
@@ -36,16 +37,15 @@
                 <hr />
 
                 <div class="row">
-                        <div class="col-sm-6">
-                            {% include "stat_pages/super_ability_list.html" %}
-                        </div>
-                        <div class="col-sm-6">
-                            {% include "stat_pages/spell_list.html" %}
-                        </div>
+                    <div class="col-sm-6">
+                        {% include "stat_pages/super_ability_list.html" %}
+                    </div>
+                    <div class="col-sm-6">
+                        {% include "stat_pages/spell_list.html" %}
                     </div>
                 </div>
+            </div>
         </div>
-
     </div>
 
 {% endblock %}
