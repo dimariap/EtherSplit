@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from EtherSplitApp.models import *
+from EtherSplitApp.forms import *
 
 
 @login_required(login_url='/login/')
@@ -63,11 +64,34 @@ def sessions(request):
     group = user.groups.get()  # might error if user is in multiple groups
     session_list = Session.objects.filter(group=group)
 
+    if request.method == 'POST':
+        None
+
     context = {
         'sessions': session_list,
     }
 
     return render(request, 'sessions.html', context)
+
+
+def new_session(request):
+    groups = Group.objects.all().order_by('name')
+    form_class = NewSessionForm
+
+    if request.method == 'POST':
+        # TODO redirect to new session
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            session_name = request.POST.get('session_name', '')
+            session_group = request.POST.get('session_group', '')
+            session_description = request.POST.get('session_description', '')
+
+            print(session_name)
+            print(session_group)
+            print(session_description)
+
+    return render(request, 'new_session.html', {'groups': groups})
 
 
 def __calculate_total_armor(character, gear):

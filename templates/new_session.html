@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="form">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Start New Session</h2><br />
+                <div class="col-sm-6 form-group has-success">
+                    {% if messages %}
+                        <div class="messages">
+                            {% for message in messages %}
+                                <div class="{{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <input class="form-control" type="text" name="session_name" placeholder="Session Name" required />
+                </div>
+
+                <div class="col-sm-6 form-group has-success">
+                    <select class="form-control" name="session_group">
+                        <option value="">---------</option>
+                            {% for group in groups %}
+                                <option value="{{ group.id }}">{{ group.name }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-sm-12 form-group">
+                    <textarea class="form-control" rows="14" name="session_description"
+                              placeholder="Description"></textarea>
+                </div>
+
+                <div class="col-sm-12 form-group" align="right">
+                    <button class="btn btn-primary" type="submit">Start New Session </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
