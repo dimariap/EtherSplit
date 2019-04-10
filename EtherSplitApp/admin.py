@@ -7,24 +7,24 @@ class CharacterAdmin(admin.ModelAdmin):
 
 
 class AbilityAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'target', 'damage', 'aoe_radius', 'charges', 'duration',
+    list_display = ('name', 'character', 'target', 'damage', 'aoe_radius', 'charges', 'duration',
                     'is_super', 'is_active')
 
 
 class WeaponAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'type', 'range', 'damage', 'ammo', 'is_active')
+    list_display = ('name', 'character', 'type', 'range', 'damage', 'ammo', 'is_active')
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'damage', 'aoe_radius', 'charges', 'is_active')
+    list_display = ('name', 'character', 'damage', 'aoe_radius', 'charges', 'is_active')
 
 
 class GearAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'hit_points', 'armor', 'is_active')
+    list_display = ('name', 'character', 'hit_points', 'armor', 'is_active')
 
 
 class SpellAdmin(admin.ModelAdmin):
-    list_display = ('character', 'name', 'target', 'damage', 'aoe_radius', 'mana_cost', 'duration', 'is_active')
+    list_display = ('name', 'character', 'target', 'damage', 'aoe_radius', 'mana_cost', 'duration', 'is_active')
 
 
 class MoneyAdmin(admin.ModelAdmin):

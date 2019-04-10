@@ -39,8 +39,15 @@ class Ability(models.Model):
     charges = models.CharField(max_length=4, blank=True, default='')
     # TODO add cool down
     # TODO add if critical condition
-    # TODO add choices to duration (instant, 1 turn, 2...)
-    duration = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
+    duration = models.CharField(max_length=8, blank=True, default='', help_text='Number of turns the ability lasts.',
+                                choices=(
+                                    ('instant', 'Instant'),
+                                    ('1turn', '1 Turn'),
+                                    ('2turn', '2 Turns'),
+                                    ('3turn', '3 Turns'),
+                                    ('4turn', '4 Turns'),
+                                    ('5turn', '5 Turns'),
+                                ))
     description = models.TextField(max_length=500, blank=True, default='')
     is_super = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -130,9 +137,10 @@ class Money(models.Model):
     ))
 
     def __str__(self):
-        return self.character, self.quantity, self.currency
+        return "{} {} {}".format(self.character, self.quantity, self.currency)
 
-    # TODO add meta class for plural
+    class Meta:
+        verbose_name_plural = 'Money'
 
 # TODO add companion class (define rules first)
 

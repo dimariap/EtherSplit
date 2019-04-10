@@ -34,6 +34,8 @@ def character_page(request, character_slug):
     spells = Spell.objects.filter(character=character)
     money = Money.objects.filter(character=character)
 
+    character.armor = __calculate_total_armor(character, gear)
+
     context = {
         'user': user,
         'character': character,
@@ -66,3 +68,16 @@ def sessions(request):
     }
 
     return render(request, 'sessions.html', context)
+
+
+def __calculate_total_armor(character, gear):
+    total_char_armor = character.armor
+
+    if total_char_armor.isdigit():
+        total_char_armor = int(total_char_armor)
+
+        for gear_piece in gear:
+            if gear_piece.armor.isdigit():
+                total_char_armor += int(gear_piece.armor)
+
+    return total_char_armor
