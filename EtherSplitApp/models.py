@@ -134,3 +134,11 @@ class Money(models.Model):
     # TODO add meta class for plural
 
 # TODO add companion class (define rules first)
+
+
+class Rule(models.Model):
+    name = models.CharField(max_length=64)
+    description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name

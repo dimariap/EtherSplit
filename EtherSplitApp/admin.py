@@ -31,6 +31,10 @@ class MoneyAdmin(admin.ModelAdmin):
     list_display = ('character', 'quantity', 'currency')
 
 
+class RuleAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Character, CharacterAdmin)
 admin.site.register(Ability, AbilityAdmin)
 admin.site.register(Weapon, WeaponAdmin)
@@ -38,3 +42,4 @@ admin.site.register(Item, ItemAdmin)
 admin.site.register(Gear, GearAdmin)
 admin.site.register(Spell, SpellAdmin)
 admin.site.register(Money, MoneyAdmin)
+admin.site.register(Rule, RuleAdmin)
