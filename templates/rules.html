@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Ether Split Rules</h2><br/>
+                <hr />
+                {% for rule in rules %}
+                    <h4>{{ rule.name }}</h4><br />
+                    <p>{{ rule.description }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

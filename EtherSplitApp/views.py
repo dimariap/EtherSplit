@@ -43,3 +43,9 @@ def character_page(request, character_slug):
     }
 
     return render(request, 'character_page.html', context)
+
+
+def rules(request):
+    rule_list = Rule.objects.all()
+
+    return render(request, 'rules.html', {'rules': rule_list})
