@@ -21,9 +21,9 @@ def group_characters(request):
     return render(request, 'characters.html', context)
 
 
-def character_page(request, character_name):
+def character_page(request, character_slug):
     user = User.objects.get(username=request.user.username)
-    character = Character.objects.get(name=character_name)
+    character = Character.objects.get(slug=character_slug)
     context = {
         'user': user,
         'character': character,

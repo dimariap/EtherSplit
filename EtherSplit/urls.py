@@ -21,5 +21,5 @@ urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', home, name='home'),
     url(r'^characters/$', group_characters, name='group_characters'),
-    url(r'^characters/(?P<character_name>[\w-]+)/$', character_page, name='character_page'),
+    url(r'^characters/(?P<character_slug>[\w-]+)/$', character_page, name='character_page'),
 ]
