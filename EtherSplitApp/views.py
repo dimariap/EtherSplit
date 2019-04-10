@@ -24,8 +24,23 @@ def group_characters(request):
 def character_page(request, character_slug):
     user = User.objects.get(username=request.user.username)
     character = Character.objects.get(slug=character_slug)
+    abilities = Ability.objects.filter(character=character)
+    weapons = Weapon.objects.filter(character=character)
+    items = Item.objects.filter(character=character)
+    gear = Gear.objects.filter(character=character)
+    spells = Spell.objects.filter(character=character)
+    money = Money.objects.filter(character=character)
+    # TODO add html pages for each model (ability, weapon, etc.) and insert block into character_page
+
     context = {
         'user': user,
         'character': character,
+        'abilities': abilities,
+        'weapons': weapons,
+        'items': items,
+        'gear': gear,
+        'spells': spells,
+        'money': money,
     }
+
     return render(request, 'character_page.html', context)

@@ -12,7 +12,7 @@ class Character(models.Model):
     armor = models.CharField(max_length=5, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
     # maybe add race/gender or other racial attributes
-    description = models.CharField(max_length=500, blank=True, default='')
+    description = models.TextField(max_length=500, blank=True, default='')
     # picture = models.ImageField(name=name, width_field=None, height_field=None)
     is_active = models.BooleanField(default=True)
     is_alive = models.BooleanField(default=True)
@@ -37,6 +37,8 @@ class Ability(models.Model):
     aoe_radius = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
     # TODO add cool down
+    # TODO add if critical condition
+    # TODO add choices to duration (instant, 1 turn, 2...)
     duration = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
     description = models.TextField(max_length=500, blank=True, default='')
     is_super = models.BooleanField(default=False)
@@ -99,7 +101,7 @@ class Gear(models.Model):
 
 
 class Spell(models.Model):
-    character = models.ForeignKey(User, on_delete=models.CASCADE)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
     target = models.CharField(max_length=32, blank=True, choices=(
         ('self', 'Self'),
@@ -118,7 +120,7 @@ class Spell(models.Model):
 
 
 class Money(models.Model):
-    character = models.ForeignKey(User, on_delete=models.CASCADE)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=6, blank=True, default='')
     currency = models.CharField(max_length=32, blank=True, choices=(
         ('holla', 'Holla'),
@@ -129,6 +131,6 @@ class Money(models.Model):
     def __str__(self):
         return self.character, self.quantity, self.currency
 
-# TODO add money class with currency type
+    # TODO add meta class for plural
 
 # TODO add companion class (define rules first)

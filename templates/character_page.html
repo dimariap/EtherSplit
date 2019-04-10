@@ -5,9 +5,85 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-12"><h3>{{ user.first_name }}'s Character</h3></div>
-            <div class="col-sm-3">{{ character.name }}</div>
+            <h2>{{ user.first_name }}'s Character</h2>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="row">
+                    <div class="col-sm-3"><h3>Name</h3></div>
+                    <div class="col-sm-3"><h3>HP</h3></div>
+                    <div class="col-sm-3"><h3>Armor</h3></div>
+                    <div class="col-sm-3"><h3>Lucky Number</h3></div>
+                </div>
+
+                <hr/>
+
+                <div class="row" id="character_stats">
+                    <div class="col-sm-3"><h4>{{ character.name }}</h4></div>
+                    <div class="col-sm-3"><h4>{{ character.hit_points }}</h4></div>
+                    <div class="col-sm-3"><h4>{{ character.armor }}</h4></div>
+                    <div class="col-sm-3"><h4>{{ character.lucky_number }}</h4></div>
+                </div>
+
+                <br /><br />
+
+                <div class="row">
+                    <div class="col-sm-6"><h3>Abilities</h3></div>
+                    <div class="col-sm-6"><h3>Weapons</h3></div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% for ability in abilities %}
+                            {% if not ability.is_super %}
+                                <div class="col-sm-12">
+                                    <h4>{{ ability.name }}</h4><br />
+                                    <p>{{ ability.description }}</p>
+                                    <br />
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-6" id="weapon_list">
+                        {% include "weapon_list.html" %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6"><h3>Super</h3></div>
+                    <div class="col-sm-6"><h3>Spells</h3></div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                        <div class="col-sm-6">
+                            {% for ability in abilities %}
+                                {% if ability.is_super %}
+                                    <div class="col-sm-12">
+                                        <h4>{{ ability.name }}</h4><br />
+                                        <p>{{ ability.description }}</p>
+                                        <br />
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6">
+                            {% for spell in spells %}
+                                <div class="col-sm-12">
+                                    <h4>{{ spell.name }}</h4><br />
+                                    <p>{{ spell.description }}</p>
+                                    <br />
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        </div>
+
     </div>
 
 {% endblock %}
