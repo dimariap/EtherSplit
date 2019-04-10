@@ -30,7 +30,6 @@ def character_page(request, character_slug):
     gear = Gear.objects.filter(character=character)
     spells = Spell.objects.filter(character=character)
     money = Money.objects.filter(character=character)
-    # TODO add html pages for each model (ability, weapon, etc.) and insert block into character_page
 
     context = {
         'user': user,

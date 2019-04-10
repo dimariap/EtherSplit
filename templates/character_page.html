@@ -9,23 +9,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-
-                <div class="row">
-                    <div class="col-sm-3"><h3>Name</h3></div>
-                    <div class="col-sm-3"><h3>HP</h3></div>
-                    <div class="col-sm-3"><h3>Armor</h3></div>
-                    <div class="col-sm-3"><h3>Lucky Number</h3></div>
-                </div>
-
-                <hr/>
-
-                <div class="row" id="character_stats">
-                    <div class="col-sm-3"><h4>{{ character.name }}</h4></div>
-                    <div class="col-sm-3"><h4>{{ character.hit_points }}</h4></div>
-                    <div class="col-sm-3"><h4>{{ character.armor }}</h4></div>
-                    <div class="col-sm-3"><h4>{{ character.lucky_number }}</h4></div>
-                </div>
-
+                {% include "stat_pages/character_stats.html" %}
                 <br /><br />
 
                 <div class="row">
