@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from EtherSplitApp.models import *
 
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def home(request):
     context = {
 
@@ -10,6 +11,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@login_required(login_url='/login/')
 def group_characters(request):
     user = User.objects.get(username=request.user.username)
     group = user.groups.get()  # might error if user is in multiple groups
@@ -21,6 +23,7 @@ def group_characters(request):
     return render(request, 'characters.html', context)
 
 
+@login_required(login_url='/login/')
 def character_page(request, character_slug):
     user = User.objects.get(username=request.user.username)
     character = Character.objects.get(slug=character_slug)
@@ -45,12 +48,14 @@ def character_page(request, character_slug):
     return render(request, 'character_page.html', context)
 
 
+@login_required(login_url='/login/')
 def rules(request):
     rule_list = Rule.objects.all()
 
     return render(request, 'rules.html', {'rules': rule_list})
 
 
+@login_required(login_url='/login/')
 def sessions(request):
     user = User.objects.get(username=request.user.username)
     group = user.groups.get()  # might error if user is in multiple groups
