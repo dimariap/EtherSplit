@@ -49,3 +49,15 @@ def rules(request):
     rule_list = Rule.objects.all()
 
     return render(request, 'rules.html', {'rules': rule_list})
+
+
+def sessions(request):
+    user = User.objects.get(username=request.user.username)
+    group = user.groups.get()  # might error if user is in multiple groups
+    session_list = Session.objects.filter(group=group)
+
+    context = {
+        'sessions': session_list,
+    }
+
+    return render(request, 'sessions.html', context)

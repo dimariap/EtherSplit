@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Ether Split Sessions</h2><br/>
+                <hr />
+                {% for session in sessions %}
+                    <div class="col-sm-5">
+                        <h4>{{ session.name }}</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>{{ session.group }}</h4><br />
+                    </div>
+                    <div class="col-sm-3">
+                        <h4>{{ session.date }}</h4>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>{{ session.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

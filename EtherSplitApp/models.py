@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.contrib.auth.models import Group
 
 
 class Character(models.Model):
@@ -139,6 +140,16 @@ class Money(models.Model):
 class Rule(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+
+class Session(models.Model):
+    name = models.CharField(max_length=64)
+    date = models.DateField(auto_now_add=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, default=1)
+    description = models.TextField(max_length=500, blank=True, default='')
 
     def __str__(self):
         return self.name

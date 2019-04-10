@@ -35,6 +35,10 @@ class RuleAdmin(admin.ModelAdmin):
     pass
 
 
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'date')
+
+
 admin.site.register(Character, CharacterAdmin)
 admin.site.register(Ability, AbilityAdmin)
 admin.site.register(Weapon, WeaponAdmin)
@@ -43,3 +47,4 @@ admin.site.register(Gear, GearAdmin)
 admin.site.register(Spell, SpellAdmin)
 admin.site.register(Money, MoneyAdmin)
 admin.site.register(Rule, RuleAdmin)
+admin.site.register(Session, SessionAdmin)

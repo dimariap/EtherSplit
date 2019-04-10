@@ -20,6 +20,7 @@ from EtherSplitApp.views import *
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', home, name='home'),
+    url(r'^sessions/$', sessions, name='sessions'),
     url(r'^rules/$', rules, name='rules'),
     url(r'^characters/$', group_characters, name='group_characters'),
     url(r'^characters/(?P<character_slug>[\w-]+)/$', character_page, name='character_page'),
