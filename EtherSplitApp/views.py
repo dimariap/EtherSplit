@@ -113,6 +113,7 @@ def session_page(request, session_id):
     context = {
         'session': session,
         'characters': characters,
+        'user': request.user,
     }
     return render(request, 'session_page.html', context)
 

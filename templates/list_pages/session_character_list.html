@@ -1,0 +1,31 @@
+<div class="col-sm-4">
+    <h4>Character</h4><hr />
+</div>
+<div class="col-sm-3">
+    <h4>Hit Points</h4><hr />
+</div>
+<div class="col-sm-3">
+    <h4>Armor</h4><hr />
+</div>
+<div class="col-sm-2">
+    <h4>Initiative</h4><hr />
+</div>
+
+<div class="col-sm-12">
+    {% for character in characters %}
+        <div class="row">
+            <div class="col-sm-4">
+                <h5><a href="characters/{{ character.slug }}">{{ character.name }}</a></h5>
+            </div>
+            <div class="col-sm-3">
+                <h5>{{ character.hit_points }}</h5>
+            </div>
+            <div class="col-sm-3">
+                <h5>{{ character.armor }}</h5>
+            </div>
+            <div class="col-sm-2">
+                <h5>{{ character.initiative }}</h5>
+            </div>
+        </div>
+    {% endfor %}
+</div>
