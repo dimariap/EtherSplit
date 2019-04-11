@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, render_to_response
+from django.urls import reverse
+
 from EtherSplitApp.models import *
 from EtherSplitApp.forms import *
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 @login_required(login_url='/login/')
@@ -62,36 +66,37 @@ def rules(request):
 def sessions(request):
     user = User.objects.get(username=request.user.username)
     group = user.groups.get()  # might error if user is in multiple groups
-    session_list = Session.objects.filter(group=group)
+    session_list = Session.objects.filter(group=group).order_by('-date')
 
     context = {
         'sessions': session_list,
+        'user': user,
     }
 
     return render(request, 'sessions.html', context)
 
 
+@staff_member_required(login_url='/login/')
 def new_session(request):
     groups = Group.objects.all().order_by('name')
-    form_class = NewSessionForm
 
     if request.method == 'POST':
-        # TODO redirect to new session
         # TODO give message if form is invalid
-        form = form_class(data=request.POST)
+        form = NewSessionForm(request.POST)
 
         if form.is_valid():
-            session_name = request.POST.get('session_name', '')
-            session_group = request.POST.get('session_group', '')
-            session_description = request.POST.get('session_description', '')
+            form.name = request.POST.get('name', '')
+            group_id = request.POST.get('group', '')
+            form.group = Group.objects.get(id=group_id)
+            form.description = request.POST.get('description', '')
+            new_created_session = form.save()
 
-            print(session_name)
-            print(session_group)
-            print(session_description)
+            return HttpResponseRedirect(reverse(session_page, args=(new_created_session.pk,)))
 
     return render(request, 'new_session.html', {'groups': groups})
 
 
+@login_required(login_url='/login/')
 def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
     context = {
@@ -111,3 +116,7 @@ def __calculate_total_armor(character, gear):
                 total_char_armor += int(gear_piece.armor)
 
     return total_char_armor
+
+
+def __reset_all_session_initiatives():
+    None

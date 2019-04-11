@@ -16,11 +16,11 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <input class="form-control" type="text" name="session_name" placeholder="Session Name" required />
+                    <input class="form-control" type="text" name="name" placeholder="Session Name" required />
                 </div>
 
                 <div class="col-sm-6 form-group has-success">
-                    <select class="form-control" name="session_group">
+                    <select class="form-control" name="group">
                         <option value="">---------</option>
                             {% for group in groups %}
                                 <option value="{{ group.id }}">{{ group.name }}</option>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="col-sm-12 form-group">
-                    <textarea class="form-control" rows="14" name="session_description"
+                    <textarea class="form-control" rows="14" name="description"
                               placeholder="Description"></textarea>
                 </div>
 
