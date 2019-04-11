@@ -148,6 +148,7 @@ class Money(models.Model):
 class Rule(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(max_length=500)
+    for_gm_only = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

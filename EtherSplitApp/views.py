@@ -101,8 +101,18 @@ def new_session(request):
 @login_required(login_url='/login/')
 def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
+    # characters = __get_session_characters(session)
+    users = User.objects.get(groups=session.group)
+    characters = Character.objects.filter(user=users).order_by('-initiative', 'name')
+    # TODO add 'is_killed' buttons and strike-through the character
+
+    for character in characters:
+        gear = Gear.objects.filter(character=character)
+        character.armor = __calculate_total_armor(character, gear)
+
     context = {
-        'session': session
+        'session': session,
+        'characters': characters,
     }
     return render(request, 'session_page.html', context)
 
