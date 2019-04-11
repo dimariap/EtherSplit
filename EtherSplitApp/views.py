@@ -91,6 +91,8 @@ def new_session(request):
             form.description = request.POST.get('description', '')
             new_created_session = form.save()
 
+            __reset_all_session_initiatives(new_created_session)
+
             return HttpResponseRedirect(reverse(session_page, args=(new_created_session.pk,)))
 
     return render(request, 'new_session.html', {'groups': groups})
@@ -118,5 +120,10 @@ def __calculate_total_armor(character, gear):
     return total_char_armor
 
 
-def __reset_all_session_initiatives():
-    None
+def __reset_all_session_initiatives(session):
+    users = User.objects.filter(groups=session.group)
+    for user in users:
+        characters = Character.objects.filter(user=user)
+        for character in characters:
+            character.initiative = ''
+            character.save()
