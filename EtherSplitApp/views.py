@@ -102,8 +102,6 @@ def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
     users = User.objects.get(groups=session.group)
     characters = Character.objects.filter(user=users).order_by('-initiative', 'name')
-    # TODO add 'is_killed' buttons and strike-through the character
-    # TODO line through entire cell, not just text
 
     for character in characters:
         gear = Gear.objects.filter(character=character)
@@ -152,6 +150,9 @@ def __reset_all_session_initiatives(session):
 
 
 def __update_active_statuses(session, is_active_list):
+    if not is_active_list:
+        return
+
     is_active_list = list(map(int, is_active_list))  # convert strings to ints
     users = User.objects.filter(groups=session.group)
     for user in users:
@@ -165,6 +166,9 @@ def __update_active_statuses(session, is_active_list):
 
 
 def __update_alive_statuses(session, is_alive_list):
+    if not is_alive_list:
+        return
+
     is_alive_list = list(map(int, is_alive_list))  # convert strings to ints
     users = User.objects.filter(groups=session.group)
     for user in users:

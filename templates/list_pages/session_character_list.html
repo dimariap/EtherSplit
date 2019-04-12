@@ -15,17 +15,27 @@
     {% for character in characters %}
         {% if character.is_active %}
             <div class="row">
-                <div class="col-sm-4">
-                    <h5><a href="characters/{{ character.slug }}">{{ character.name }}</a></h5>
+                <div class="col-sm-4" {% if not character.is_alive %}
+                     style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                        {% endif %}>
+                    <h4><a href="characters/{{ character.slug }}" {% if not character.is_alive %} style="color: #8c8c8c"
+                    {% endif %}>
+                        {{ character.name }}</a></h4>
                 </div>
-                <div class="col-sm-3">
-                    <h5>{{ character.hit_points }}</h5>
+                <div class="col-sm-3" {% if not character.is_alive %}
+                     style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                {% endif %}>
+                    <h4>{{ character.hit_points }}</h4>
                 </div>
-                <div class="col-sm-3">
-                    <h5>{{ character.armor }}</h5>
+                <div class="col-sm-3" {% if not character.is_alive %}
+                     style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                {% endif %}>
+                    <h4>{{ character.armor }}</h4>
                 </div>
-                <div class="col-sm-2">
-                    <h5>{{ character.initiative }}</h5>
+                <div class="col-sm-2" {% if not character.is_alive %}
+                     style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                {% endif %}>
+                    <h4>{{ character.initiative }}</h4>
                 </div>
             </div>
         {% endif %}

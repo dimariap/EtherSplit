@@ -15,8 +15,8 @@ class Character(models.Model):
     # maybe add race/gender or other racial attributes
     description = models.TextField(max_length=500, blank=True, default='')
     # picture = models.ImageField(name=name, width_field=None, height_field=None)
-    is_active = models.BooleanField(default=True)
-    is_alive = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)  # might add is_hidden for undiscovered characters
+    is_alive = models.BooleanField(default=True)  # TODO change to null boolean (for undead)
     slug = models.SlugField(unique=True, editable=False)
 
     def __str__(self):
