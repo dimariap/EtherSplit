@@ -19,29 +19,45 @@
     </div>
 </div>
 
-<div class="col-sm-12">
-    {% for character in characters %}
-        <div class="row">
-            <div class="col-sm-3" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
-                <h4><a href="characters/{{ character.slug }}">{{ character.name }}</a></h4>
-            </div>
-            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
-                <h4>{{ character.hit_points }}</h4>
-            </div>
-            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
-                <h4>{{ character.armor }}</h4>
-            </div>
-            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
-                <h4>{{ character.initiative }}</h4>
-            </div>
-            <div class="col-sm-3">
-                <div class="col-sm-6">
-                    <h4>{{ character.is_active }}</h4>
+<form method="POST">
+    {% csrf_token %}
+    <div class="col-sm-12">
+        {% for character in characters %}
+            <div class="row">
+                <div class="col-sm-3" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
+                    <h4><a href="characters/{{ character.slug }}">{{ character.name }}</a></h4>
                 </div>
-                <div class="col-sm-6">
-                    <h4>{{ character.is_alive }}</h4>
+                <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
+                    <h4>{{ character.hit_points }}</h4>
+                </div>
+                <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
+                    <h4>{{ character.armor }}</h4>
+                </div>
+                <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
+                    <h4>{{ character.initiative }}</h4>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col-sm-6">
+                        <input name="is-active-list" value="{{ character.id }}" type="checkbox"
+                               {% if character.is_active %} checked {% endif %}
+                               data-toggle="toggle" data-on="Active" data-off="Inactive">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="checkbox" name="is-alive-list" value="{{ character.id }}" type="checkbox"
+                               {% if character.is_alive %} checked {% endif %}
+                               data-toggle="toggle" data-on="Alive" data-off="Dead">
+                    </div>
                 </div>
             </div>
+        {% endfor %}
+
+        <br /><br />
+
+        <div class="col-sm-12" align="right">
+            <button class="btn btn-primary" type="submit">Save</button>
         </div>
-    {% endfor %}
-</div>
+    </div>
+</form>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

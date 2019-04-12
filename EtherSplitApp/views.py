@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.urls import reverse
-
 from EtherSplitApp.models import *
 from EtherSplitApp.forms import *
 from django.contrib.admin.views.decorators import staff_member_required
@@ -101,10 +100,10 @@ def new_session(request):
 @login_required(login_url='/login/')
 def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
-    # characters = __get_session_characters(session)
     users = User.objects.get(groups=session.group)
     characters = Character.objects.filter(user=users).order_by('-initiative', 'name')
     # TODO add 'is_killed' buttons and strike-through the character
+    # TODO line through entire cell, not just text
 
     for character in characters:
         gear = Gear.objects.filter(character=character)
@@ -115,6 +114,18 @@ def session_page(request, session_id):
         'characters': characters,
         'user': request.user,
     }
+
+    if request.method == 'POST':
+        is_active_list = request.POST.getlist('is-active-list', None)
+        is_alive_list = request.POST.getlist('is-alive-list', None)
+        print(is_active_list)
+        print(is_alive_list)
+
+        __update_active_statuses(session, is_active_list)
+        __update_alive_statuses(session, is_alive_list)
+
+        return redirect('/sessions/' + str(session_id))
+
     return render(request, 'session_page.html', context)
 
 
@@ -137,4 +148,30 @@ def __reset_all_session_initiatives(session):
         characters = Character.objects.filter(user=user)
         for character in characters:
             character.initiative = ''
+            character.save()
+
+
+def __update_active_statuses(session, is_active_list):
+    is_active_list = list(map(int, is_active_list))  # convert strings to ints
+    users = User.objects.filter(groups=session.group)
+    for user in users:
+        characters = Character.objects.filter(user=user)
+        for character in characters:
+            if character.id in is_active_list:
+                character.is_active = True
+            else:
+                character.is_active = False
+            character.save()
+
+
+def __update_alive_statuses(session, is_alive_list):
+    is_alive_list = list(map(int, is_alive_list))  # convert strings to ints
+    users = User.objects.filter(groups=session.group)
+    for user in users:
+        characters = Character.objects.filter(user=user)
+        for character in characters:
+            if character.id in is_alive_list:
+                character.is_alive = True
+            else:
+                character.is_alive = False
             character.save()
