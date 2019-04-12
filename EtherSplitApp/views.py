@@ -58,9 +58,16 @@ def character_page(request, character_slug):
 
 @login_required(login_url='/login/')
 def rules(request):
-    rule_list = Rule.objects.all()
+    admin_rule_list = Rule.objects.all()
+    user_rule_list = Rule.objects.filter(for_gm_only=False)
+    # might list user twice for GM
+    context = {
+        'admin_rules': admin_rule_list,
+        'user_rules': user_rule_list,
+        'user': request.user,
+    }
 
-    return render(request, 'rules.html', {'rules': rule_list})
+    return render(request, 'rules.html', context)
 
 
 @login_required(login_url='/login/')
@@ -118,8 +125,6 @@ def session_page(request, session_id):
     if request.method == 'POST':
         is_active_list = request.POST.getlist('is-active-list', None)
         is_alive_list = request.POST.getlist('is-alive-list', None)
-        print(is_active_list)
-        print(is_alive_list)
 
         __update_active_statuses(session, is_active_list)
         __update_alive_statuses(session, is_alive_list)
