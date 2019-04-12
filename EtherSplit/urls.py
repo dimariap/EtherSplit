@@ -35,3 +35,6 @@ urlpatterns = [
         # password_reset_confirm, name='password_reset_confirm'),
     # path(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
 ]
+
+handler404 = handler404
+handler500 = handler500
