@@ -1,3 +1,4 @@
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
@@ -5,6 +6,7 @@ from django.urls import reverse
 from EtherSplitApp.models import *
 from EtherSplitApp.forms import *
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib import messages
 
 
 @login_required(login_url='/login/')
@@ -125,6 +127,28 @@ def session_page(request, session_id):
         return redirect('/sessions/' + str(session_id))
 
     return render(request, 'session_page.html', context)
+
+
+# authentication views
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(home)
+        else:
+            messages.warning(request, 'Unable to login, please try again.')
+
+        return HttpResponseRedirect('/')
+
+    return render(request, 'login.html')
+
+
+def signout(request):
+    logout(request)
+    return redirect(signin)
 
 
 def __calculate_total_armor(character, gear):
