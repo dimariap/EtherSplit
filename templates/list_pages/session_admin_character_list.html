@@ -22,24 +22,24 @@
 <div class="col-sm-12">
     {% for character in characters %}
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
                 <h4><a href="characters/{{ character.slug }}">{{ character.name }}</a></h4>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
                 <h4>{{ character.hit_points }}</h4>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
                 <h4>{{ character.armor }}</h4>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" {% if not character.is_alive%} style="text-decoration-line: line-through" {% endif %}>
                 <h4>{{ character.initiative }}</h4>
             </div>
             <div class="col-sm-3">
                 <div class="col-sm-6">
-                     {{ character.is_active }}
+                    <h4>{{ character.is_active }}</h4>
                 </div>
                 <div class="col-sm-6">
-                     {{ character.is_alive }}
+                    <h4>{{ character.is_alive }}</h4>
                 </div>
             </div>
         </div>
