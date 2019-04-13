@@ -145,7 +145,7 @@ def session_page(request, session_id):
         'session': session,
         'characters': characters,
         'user': request.user,
-    }  # TODO is not intiaitaive input, else display
+    }
 
     if request.method == 'POST':
         is_active_list = request.POST.getlist('is-active-list', None)
@@ -157,8 +157,7 @@ def session_page(request, session_id):
             if not character.initiative:
                 initiative = request.POST.get(str(character.id) + '_initiative', '')
                 character.initiative = initiative
-                print(initiative)
-                character.save()
+                character.save(update_fields=['initiative'])
 
         return redirect('/sessions/' + str(session_id))
 
