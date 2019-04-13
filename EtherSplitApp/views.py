@@ -150,9 +150,15 @@ def session_page(request, session_id):
     if request.method == 'POST':
         is_active_list = request.POST.getlist('is-active-list', None)
         is_alive_list = request.POST.getlist('is-alive-list', None)
-
         __update_active_statuses(session, is_active_list)
         __update_alive_statuses(session, is_alive_list)
+
+        for character in characters:
+            if not character.initiative:
+                initiative = request.POST.get(str(character.id) + '_initiative', '')
+                character.initiative = initiative
+                print(initiative)
+                character.save()
 
         return redirect('/sessions/' + str(session_id))
 

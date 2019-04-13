@@ -44,7 +44,17 @@
                 <div class="col-sm-2" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
-                    <h4>{{ character.initiative }}</h4>
+                    <h4>
+                        {% if character.initiative %}
+                            {{ character.initiative }}
+                        {% else %}
+                            <div class="col-sm-12">
+                                <input class="form-control" name="{{ character.id }}_initiative"
+                                       value="{{ character.initiative }}"
+                                       placeholder="{{ character.initiative }}" type="number">
+                            </div>
+                        {% endif %}
+                    </h4>
                 </div>
                 <div class="col-sm-3">
                     <div class="col-sm-6">
