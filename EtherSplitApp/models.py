@@ -27,6 +27,28 @@ class Character(models.Model):
         super(Character, self).save(*args, **kwargs)
 
 
+class CharacterStats(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    str = models.CharField(max_length=4, blank=True, default='', help_text='Strength')
+    end = models.CharField(max_length=4, blank=True, default='', help_text='Endurance')
+    agi = models.CharField(max_length=4, blank=True, default='', help_text='Agility')
+    spd = models.CharField(max_length=4, blank=True, default='', help_text='Speed')
+    cog = models.CharField(max_length=4, blank=True, default='', help_text='Cognition')
+    wis = models.CharField(max_length=4, blank=True, default='', help_text='Wisdom')
+    mag = models.CharField(max_length=4, blank=True, default='', help_text='Magnetism')
+    flo = models.CharField(max_length=4, blank=True, default='', help_text='Flow')
+    luk = models.CharField(max_length=4, blank=True, default='', help_text='Luck')
+    wil = models.CharField(max_length=4, blank=True, default='', help_text='Will')
+    chi = models.CharField(max_length=4, blank=True, default='', help_text='Chi')
+    syn = models.CharField(max_length=4, blank=True, default='', help_text='Syncro')
+
+    def __str__(self):
+        return self.character
+
+    class Meta:
+        verbose_name_plural = 'Character Stats'
+
+
 class Ability(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
@@ -98,6 +120,19 @@ class Gear(models.Model):
     name = models.CharField(max_length=32,)
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
+    body_part = models.CharField(max_length=12, blank=True, default='', choices=(
+        ('head', 'Head'),
+        ('chest', 'Chest'),
+        ('left_arm', 'Left Arm'),
+        ('right_arm', 'Right Arm'),
+        ('arms', 'Arms'),
+        ('waist', 'Waist'),
+        ('left_leg', 'Left Leg'),
+        ('right_leg', 'Right Leg'),
+        ('legs', 'legs'),
+        ('hands', 'Hands'),
+        ('feet', 'Feet'),
+    ))
     description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
