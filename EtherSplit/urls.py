@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^rules/$', rules, name='rules'),
     url(r'^characters/$', group_characters, name='group_characters'),
     url(r'^characters/(?P<character_slug>[\w-]+)/$', character_page, name='character_page'),
+    url(r'^characters/(?P<character_slug>[\w-]+)/gear$', character_gear_page, name='character_gear_page'),
     # authentication urls
     url(r'^login/$', signin),
     url(r'^logout/$', signout),

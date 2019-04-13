@@ -57,6 +57,31 @@ def character_page(request, character_slug):
 
 
 @login_required(login_url='/login/')
+def character_gear_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    gear = Gear.objects.filter(character=character)
+    user = request.user
+
+    context = {
+        'character': character,
+        'gear': gear,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            for gear_piece in gear:
+                gear_piece_armor = request.POST.get(str(gear_piece.id), None)
+                if gear_piece_armor and gear_piece_armor != gear_piece.armor:
+                    gear_piece.armor = gear_piece_armor
+                    gear_piece.save()
+
+        return redirect('/characters/' + str(character.slug) + '/' + 'gear')
+
+    return render(request, 'character_gear_page.html', context)
+
+
+@login_required(login_url='/login/')
 def rules(request):
     admin_rule_list = Rule.objects.all()
     user_rule_list = Rule.objects.filter(for_gm_only=False)
@@ -120,7 +145,7 @@ def session_page(request, session_id):
         'session': session,
         'characters': characters,
         'user': request.user,
-    }
+    }  # TODO is not intiaitaive input, else display
 
     if request.method == 'POST':
         is_active_list = request.POST.getlist('is-active-list', None)
@@ -164,6 +189,7 @@ def handler500(request, *args, **kwargs):
     return render(request, '500.html', status=500)
 
 
+# methods
 def __calculate_total_armor(character, gear):
     total_char_armor = character.armor
 

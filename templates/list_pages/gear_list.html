@@ -1,0 +1,8 @@
+<hr />
+{% for gear_piece in gear %}
+    <div class="col-sm-12">
+        <h4><a href="characters/{{ character.slug }}/gear">{{ gear_piece.name }}</a></h4>
+        <p>{{ gear_piece.description }}</p>
+        <br />
+    </div>
+{% endfor %}

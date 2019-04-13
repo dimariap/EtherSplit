@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <h2>{{ character.name }}'s Gear</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <h3>Name</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>Armor Points</h3>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-12">
+                    {% for gear_piece in gear %}
+                        <div class="col-sm-6">
+                            <h4>{{ gear_piece.name }}</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>
+                                {% if user == character.user or user.is_staff %}
+                                    <div class="col-sm-3">
+                                        <input class="form-control" name="{{ gear_piece.id }}"
+                                               value="{{ gear_piece.armor}}"
+                                               placeholder="{{ gear_piece.armor }}" type="number">
+                                    </div>
+                                {% else %}
+                                    {{ gear_piece.armor }}
+                                {% endif %}
+                            </h4>
+                        </div><br />
+                        <div class="col-sm-12">
+                            <p>{{ gear_piece.description }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <br /><br />
+                <div class="col-sm-12" align="right">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
