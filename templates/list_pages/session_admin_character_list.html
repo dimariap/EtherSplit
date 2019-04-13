@@ -1,20 +1,20 @@
 <div class="col-sm-3">
     <h3>Character</h3><hr />
 </div>
-<div class="col-sm-2">
+<div class="col-sm-2" align="center">
     <h3>Hit Points</h3><hr />
 </div>
-<div class="col-sm-2">
+<div class="col-sm-2"align="center">
     <h3>Armor</h3><hr />
 </div>
-<div class="col-sm-2">
+<div class="col-sm-2" align="center">
     <h3>Initiative</h3><hr />
 </div>
-<div class="col-sm-3">
+<div class="col-sm-3" align="center">
     <div class="col-sm-6">
         <h3>Active</h3><hr />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" align="center">
         <h3>Alive</h3><hr />
     </div>
 </div>
@@ -31,17 +31,17 @@
                     {% endif %}>
                         {{ character.name }}</a></h4>
                 </div>
-                <div class="col-sm-2" {% if not character.is_alive %}
+                <div class="col-sm-2" align="center" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
                     <h4>{{ character.hit_points }}</h4>
                 </div>
-                <div class="col-sm-2" {% if not character.is_alive %}
+                <div class="col-sm-2" align="center" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
                     <h4>{{ character.armor }}</h4>
                 </div>
-                <div class="col-sm-2" {% if not character.is_alive %}
+                <div class="col-sm-2" align="center" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
                     <h4>
@@ -49,7 +49,7 @@
                             {{ character.initiative }}
                         {% else %}
                             <div class="col-sm-12">
-                                <input class="form-control" name="{{ character.id }}_initiative"
+                                <input class="form-control input-sm" name="{{ character.id }}_initiative"
                                        value="{{ character.initiative }}"
                                        placeholder="{{ character.initiative }}" type="number">
                             </div>
@@ -57,12 +57,12 @@
                     </h4>
                 </div>
                 <div class="col-sm-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" align="center">
                         <input name="is-active-list" value="{{ character.id }}" type="checkbox"
                                {% if character.is_active %} checked {% endif %}
                                data-toggle="toggle" data-on="Active" data-off="Inactive">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" align="center">
                         <input type="checkbox" name="is-alive-list" value="{{ character.id }}" type="checkbox"
                                {% if character.is_alive %} checked {% endif %}
                                data-toggle="toggle" data-on="Alive" data-off="Dead">

@@ -148,16 +148,20 @@ def session_page(request, session_id):
     }
 
     if request.method == 'POST':
+        user = request.user
+
         is_active_list = request.POST.getlist('is-active-list', None)
         is_alive_list = request.POST.getlist('is-alive-list', None)
         __update_active_statuses(session, is_active_list)
         __update_alive_statuses(session, is_alive_list)
 
         for character in characters:
-            if not character.initiative:
-                initiative = request.POST.get(str(character.id) + '_initiative', '')
-                character.initiative = initiative
-                character.save(update_fields=['initiative'])
+            if user == character.user or user.is_staff:
+                # TODO add if user to template for hp and aror and init
+                if not character.initiative:
+                    initiative = request.POST.get(str(character.id) + '_initiative', '')
+                    character.initiative = initiative
+                    character.save(update_fields=['initiative'])
 
         return redirect('/sessions/' + str(session_id))
 
@@ -218,7 +222,7 @@ def __reset_all_session_initiatives(session):
 
 
 def __update_active_statuses(session, is_active_list):
-    if not is_active_list:
+    if is_active_list is None:
         return
 
     is_active_list = list(map(int, is_active_list))  # convert strings to ints
@@ -234,7 +238,7 @@ def __update_active_statuses(session, is_active_list):
 
 
 def __update_alive_statuses(session, is_alive_list):
-    if not is_alive_list:
+    if is_alive_list is None:
         return
 
     is_alive_list = list(map(int, is_alive_list))  # convert strings to ints
