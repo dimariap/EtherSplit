@@ -6,6 +6,10 @@ class CharacterAdmin(admin.ModelAdmin):
     list_display = ('name', 'user', 'lucky_number', 'hit_points', 'armor', 'initiative', 'is_active', 'is_alive')
 
 
+class CharacterStatsAdmin(admin.ModelAdmin):
+    pass
+
+
 class AbilityAdmin(admin.ModelAdmin):
     list_display = ('name', 'character', 'target', 'damage', 'aoe_radius', 'charges', 'duration',
                     'is_super', 'is_active')
@@ -40,6 +44,7 @@ class SessionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Character, CharacterAdmin)
+admin.site.register(CharacterStats, CharacterStatsAdmin)
 admin.site.register(Ability, AbilityAdmin)
 admin.site.register(Weapon, WeaponAdmin)
 admin.site.register(Item, ItemAdmin)

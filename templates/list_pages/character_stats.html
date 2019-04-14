@@ -1,15 +1,38 @@
 <div class="row">
-    <div class="col-sm-3"><h3>Name</h3><hr /></div>
-    <div class="col-sm-2"><h3>Initiative</h3><hr /></div>
-    <div class="col-sm-2"><h3>Hit Points</h3><hr /></div>
-    <div class="col-sm-2"><h3>Armor</h3><hr /></div>
-    <div class="col-sm-3"><h3>Lucky Number</h3><hr /></div>
+    <div class="col-sm-4" align="center"><h3>Mind</h3><hr /></div>
+    <div class="col-sm-4" align="center"><h3>Body</h3><hr /></div>
+    <div class="col-sm-4" align="center"><h3>Spirit</h3><hr /></div>
 </div>
 
 <div class="row" id="character_stats">
-    <div class="col-sm-3"><h4>{{ character.name }}</h4></div>
-    <div class="col-sm-2"><h4>{{ character.initiative }}</h4></div>
-    <div class="col-sm-2"><h4>{{ character.hit_points }}</h4></div>
-    <div class="col-sm-2"><h4>{{ character.armor }}</h4></div>
-    <div class="col-sm-3"><h4>{{ character.lucky_number }}</h4></div>
+    <div class="col-sm-4" align="center">
+        <h4>
+            {% for character_stat in character_stats %}
+                STR {{ character_stat.str }}<br /><br />
+                END {{ character_stat.end }}<br /><br />
+                SPD {{ character_stat.spd }}<br /><br />
+                AGI {{ character_stat.agi }}<br /><br />
+            {% endfor %}
+        </h4>
+    </div>
+    <div class="col-sm-4" align="center">
+        <h4>
+            {% for character_stat in character_stats %}
+                COG {{ character_stat.cog }}<br /><br />
+                WIS {{ character_stat.wis }}<br /><br />
+                MAG {{ character_stat.mag }}<br /><br />
+                FLO {{ character_stat.flo }}<br /><br />
+            {% endfor %}
+        </h4>
+    </div>
+    <div class="col-sm-4" align="center">
+        <h4>
+            {% for character_stat in character_stats %}
+                LUK {{ character_stat.luk }}<br /><br />
+                WIL {{ character_stat.wil }}<br /><br />
+                CHI {{ character_stat.chi }}<br /><br />
+                SYN {{ character_stat.syn }}<br /><br />
+            {% endfor %}
+        </h4>
+    </div>
 </div>

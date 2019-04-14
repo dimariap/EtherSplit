@@ -33,6 +33,7 @@ def group_characters(request):
 def character_page(request, character_slug):
     user = User.objects.get(username=request.user.username)
     character = Character.objects.get(slug=character_slug)
+    character_stats = CharacterStats.objects.filter(character=character)
     abilities = Ability.objects.filter(character=character)
     weapons = Weapon.objects.filter(character=character)
     items = Item.objects.filter(character=character)
@@ -45,6 +46,7 @@ def character_page(request, character_slug):
     context = {
         'user': user,
         'character': character,
+        'character_stats': character_stats,
         'abilities': abilities,
         'weapons': weapons,
         'items': items,

@@ -43,7 +43,7 @@ class CharacterStats(models.Model):
     syn = models.CharField(max_length=4, blank=True, default='', help_text='Syncro')
 
     def __str__(self):
-        return self.character
+        return self.character.name
 
     class Meta:
         verbose_name_plural = 'Character Stats'
