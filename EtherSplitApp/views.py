@@ -159,7 +159,7 @@ def session_page(request, session_id):
 
         for character in characters:
             if user == character.user or user.is_staff:
-                # TODO add if user to template for hp and aror and init
+                # TODO add if user to template for hp and armor and init
                 if not character.initiative:
                     initiative = request.POST.get(str(character.id) + '_initiative', '')
                     character.initiative = initiative
@@ -220,7 +220,7 @@ def __reset_all_session_initiatives(session):
         characters = Character.objects.filter(user=user)
         for character in characters:
             character.initiative = ''
-            character.save()
+            character.save(update_fields=['initiative'])
 
 
 def __update_active_statuses(session, is_active_list):
@@ -236,7 +236,7 @@ def __update_active_statuses(session, is_active_list):
                 character.is_active = True
             else:
                 character.is_active = False
-            character.save()
+            character.save(update_fields=['is_active'])
 
 
 def __update_alive_statuses(session, is_alive_list):
@@ -252,4 +252,4 @@ def __update_alive_statuses(session, is_alive_list):
                 character.is_alive = True
             else:
                 character.is_alive = False
-            character.save()
+            character.save(update_fields=['is_alive'])

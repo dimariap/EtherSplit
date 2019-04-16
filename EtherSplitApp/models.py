@@ -84,15 +84,8 @@ class Ability(models.Model):
 class Weapon(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
-    type = models.CharField(max_length=32, blank=True, default='')  # TODO add choices like Sword, Gun, etc.
-    range = models.CharField(max_length=32, choices=(
-        ('short', 'Short'),
-        ('short-medium', 'Short to Medium'),
-        ('medium', 'Medium'),
-        ('medium-long', 'Medium to Long'),
-        ('long', 'Long'),
-        ('unknown', 'Unknown')
-    ))
+    type = models.CharField(max_length=32, blank=True, default='')
+    range = models.CharField(max_length=32, blank=True, default='')
     damage = models.CharField(max_length=4, blank=True, default='')
     ammo = models.CharField(max_length=5, blank=True, default='', help_text='Put \'melee\' if melee weapon.')
     description = models.TextField(max_length=500, blank=True, default='')
