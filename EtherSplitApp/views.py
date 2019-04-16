@@ -76,11 +76,33 @@ def character_gear_page(request, character_slug):
                 gear_piece_armor = request.POST.get(str(gear_piece.id), None)
                 if gear_piece_armor and gear_piece_armor != gear_piece.armor:
                     gear_piece.armor = gear_piece_armor
-                    gear_piece.save()
+                    gear_piece.save(update_fields=['armor'])
 
         return redirect('/characters/' + str(character.slug) + '/' + 'gear')
 
-    return render(request, 'character_gear_page.html', context)
+    return render(request, 'character_pages/character_gear_page.html', context)
+
+
+@login_required(login_url='/login/')
+def character_ability_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    abilities = Ability.objects.filter(character=character).order_by('is_super')
+    user = request.user
+
+    context = {
+        'character': character,
+        'abilities': abilities,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            for ability in abilities:
+                print(ability.name)
+
+        return redirect('/characters/' + str(character.slug) + '/' + 'abilities')
+
+    return render(request, 'character_pages/character_ability_page.html', context)
 
 
 @login_required(login_url='/login/')
@@ -156,6 +178,8 @@ def session_page(request, session_id):
         is_alive_list = request.POST.getlist('is-alive-list', None)
         __update_active_statuses(session, is_active_list)
         __update_alive_statuses(session, is_alive_list)
+
+        start_next_turn = request.POST.get('start_next_turn', 'False')
 
         for character in characters:
             if user == character.user or user.is_staff:
