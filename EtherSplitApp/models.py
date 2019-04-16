@@ -59,8 +59,14 @@ class Ability(models.Model):
     damage = models.CharField(max_length=4, blank=True, default='')
     aoe_radius = models.CharField(max_length=4, blank=True, default='')
     charges = models.CharField(max_length=4, blank=True, default='')
-    cooldown = models.CharField(max_length=4, blank=True, default='')
-    # TODO add cool down
+    cooldown = models.CharField(max_length=8, blank=True, default='', choices=(
+                                    ('0', 'Instant'),
+                                    ('1', '1 Turn'),
+                                    ('2', '2 Turns'),
+                                    ('3', '3 Turns'),
+                                    ('4', '4 Turns'),
+                                    ('5', '5 Turns'),
+                                ))
     # TODO add if critical condition
     duration = models.CharField(max_length=8, blank=True, default='', help_text='Number of turns the ability lasts.',
                                 choices=(
