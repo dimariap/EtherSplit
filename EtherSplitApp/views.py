@@ -98,7 +98,7 @@ def character_ability_page(request, character_slug):
     if request.method == 'POST':
         if user == character.user or user.is_staff:
             for ability in abilities:
-                print(ability.name)
+                print(ability.name)  # subtract 1 (next turn button) from cooldown
 
         return redirect('/characters/' + str(character.slug) + '/' + 'abilities')
 
@@ -160,6 +160,7 @@ def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
     users = User.objects.get(groups=session.group)
     characters = Character.objects.filter(user=users).order_by('-initiative', 'name')
+    user = request.user
 
     for character in characters:
         gear = Gear.objects.filter(character=character)
@@ -168,22 +169,22 @@ def session_page(request, session_id):
     context = {
         'session': session,
         'characters': characters,
-        'user': request.user,
+        'user': user,
     }
 
     if request.method == 'POST':
-        user = request.user
+        is_admin_page = request.POST.get('is-admin-page', False)
 
-        is_active_list = request.POST.getlist('is-active-list', None)
-        is_alive_list = request.POST.getlist('is-alive-list', None)
-        __update_active_statuses(session, is_active_list)
-        __update_alive_statuses(session, is_alive_list)
+        if user.is_staff and is_admin_page:
+            is_active_list = request.POST.getlist('is-active-list', None)
+            is_alive_list = request.POST.getlist('is-alive-list', None)
+            __update_active_statuses(session, is_active_list)
+            __update_alive_statuses(session, is_alive_list)
 
-        start_next_turn = request.POST.get('start_next_turn', 'False')
+        # start_next_turn = request.POST.get('start-next-turn', False)
 
         for character in characters:
             if user == character.user or user.is_staff:
-                # TODO add if user to template for hp and armor and init
                 if not character.initiative:
                     initiative = request.POST.get(str(character.id) + '_initiative', '')
                     character.initiative = initiative
