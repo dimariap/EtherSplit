@@ -7,7 +7,6 @@ from django.contrib.auth.models import Group
 class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # TODO implement a custom user model
     name = models.CharField(max_length=32, unique=True)
-    # TODO character stats - mind, body, and spirit
     lucky_number = models.CharField(max_length=3, blank=True, default='')
     hit_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
@@ -16,7 +15,7 @@ class Character(models.Model):
     description = models.TextField(max_length=500, blank=True, default='')
     # picture = models.ImageField(name=name, width_field=None, height_field=None)
     is_active = models.BooleanField(default=True)  # might add is_hidden for undiscovered characters
-    is_alive = models.BooleanField(default=True)  # TODO change to null boolean (for undead)
+    is_alive = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, editable=False)
 
     def __str__(self):

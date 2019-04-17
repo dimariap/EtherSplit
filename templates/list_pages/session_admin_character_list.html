@@ -39,7 +39,13 @@
                 <div class="col-sm-2" align="center" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
-                    <h4>{{ character.armor }}</h4>
+                    <h4>
+                        {% if character.user == user or user.is_staff %}
+                            <a href="characters/{{ character.slug }}/gear">{{ character.armor }}</a>
+                        {% else %}
+                            {{ character.armor }}
+                        {% endif %}
+                    </h4>
                 </div>
                 <div class="col-sm-2" align="center" {% if not character.is_alive %}
                      style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"

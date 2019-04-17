@@ -63,6 +63,8 @@ def character_gear_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
     gear = Gear.objects.filter(character=character)
     user = request.user
+    character_sessions = Session.objects.filter(group=user.groups.get())
+    most_recent_session = character_sessions.latest('date')
 
     context = {
         'character': character,
@@ -78,7 +80,10 @@ def character_gear_page(request, character_slug):
                     gear_piece.armor = gear_piece_armor
                     gear_piece.save(update_fields=['armor'])
 
-        return redirect('/characters/' + str(character.slug) + '/' + 'gear')
+        character_sessions = Session.objects.filter(group=user.groups.get())  # might error if multiple groups
+        most_recent_session = character_sessions.latest('date')  # get the most recent session
+
+        return redirect('/sessions/' + str(most_recent_session.id))
 
     return render(request, 'character_pages/character_gear_page.html', context)
 
