@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Ether Split Rules</h2><br/>
+                <hr />
+                {% if user.is_staff %}
+                    {% for rule in admin_rules %}
+                        <div class="col-sm-12">
+                            <h4>{{ rule.name }}</h4>
+                            <p>{{ rule.description }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for rule in user_rules %}
+                        <div class="col-sm-12">
+                            <h4>{{ rule.name }}</h4>
+                            <p>{{ rule.description }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

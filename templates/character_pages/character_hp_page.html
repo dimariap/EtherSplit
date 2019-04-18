@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <h2>{{ character.name }}'s Health points</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <h3>Name</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>Health Points</h3>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <h4>Base Health</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>
+                            {% if user == character.user or user.is_staff %}
+                                <div class="col-sm-3">
+                                    <input class="form-control" name="character_{{ character.id }}"
+                                           value="{{ character.health_points }}"
+                                           placeholder="{{ character.health_points }}" type="number">
+                                </div>
+                            {% else %}
+                                {{ character.health_points }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    {% for gear_piece in gear %}
+                        <div class="col-sm-6">
+                            <h4>{{ gear_piece.name }}</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>
+                                {% if user == character.user or user.is_staff %}
+                                    <div class="col-sm-3">
+                                        <input class="form-control" name="gear_{{ gear_piece.id }}"
+                                               value="{{ gear_piece.health_points }}"
+                                               placeholder="{{ gear_piece.health_points }}" type="number">
+                                    </div>
+                                {% else %}
+                                    {{ gear_piece.health_points }}
+                                {% endif %}
+                            </h4>
+                        </div><br />
+                        <div class="col-sm-12">
+                            <p>{{ gear_piece.description }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <br /><br />
+                <div class="col-sm-12" align="right">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

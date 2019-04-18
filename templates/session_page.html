@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3>{{ session.name }}</h3>
+            </div>
+            <div class="col-sm-4">
+                <h3>{{ session.group }}</h3>
+            </div>
+            <div class="col-sm-3">
+                <h3>{{ session.date }}</h3>
+            </div>
+            <div class="col-sm-12">
+                <p>{{ session.description }}</p>
+            </div>
+        </div>
+
+        <hr />
+        <br />
+
+        {% if user.is_staff %}
+            <div class="row">
+                {% include "list_pages/session_admin_character_list.html" %}
+            </div>
+        {% else %}
+            <div class="row">
+                {% include "list_pages/session_character_list.html" %}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

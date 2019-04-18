@@ -1,0 +1,74 @@
+<div class="col-sm-4">
+    <h3>Character</h3><hr />
+</div>
+<div class="col-sm-3" align="center">
+    <h3>Health</h3><hr />
+</div>
+<div class="col-sm-3" align="center">
+    <h3>Armor</h3><hr />
+</div>
+<div class="col-sm-2" align="center">
+    <h3>Initiative</h3><hr />
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="col-sm-12">
+        {% for character in characters %}
+            {% if character.is_active %}
+                <div class="row">
+                    <div class="col-sm-4" {% if not character.is_alive %}
+                         style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                            {% endif %}>
+                        <h4><a href="characters/{{ character.slug }}" {% if not character.is_alive %} style="color: #8c8c8c"
+                        {% endif %}>
+                            {{ character.name }}</a></h4>
+                    </div>
+                    <div class="col-sm-3" align="center" {% if not character.is_alive %}
+                         style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                    {% endif %}>
+                        <h4>
+                            {% if character.user == user or user.is_staff %}
+                                <a href="characters/{{ character.slug }}/hit-points">{{ character.health_points }}</a>
+                            {% else %}
+                                {{ character.health_points }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="col-sm-3" align="center" {% if not character.is_alive %}
+                         style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                    {% endif %}>
+                        <h4>
+                            {% if character.user == user or user.is_staff %}
+                                <a href="characters/{{ character.slug }}/gear">{{ character.armor }}</a>
+                            {% else %}
+                                {{ character.armor }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="col-sm-2" align="center" {% if not character.is_alive %}
+                         style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
+                    {% endif %}>
+                        <h4>
+                            {% if character.initiative %}
+                                {{ character.initiative }}
+                            {% else %}
+                                {% if character.user == user or user.is_staff %}
+                                    <div class="col-sm-12">
+                                        <input class="form-control" name="{{ character.id }}_initiative"
+                                               value="{{ character.initiative }}"
+                                               placeholder="{{ character.initiative }}" type="number">
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </h4>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    <br />
+        <div class="col-sm-12" align="right">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </div>
+</form>

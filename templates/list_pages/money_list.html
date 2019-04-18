@@ -1,0 +1,11 @@
+<hr />
+{% for money_piece in money %}
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <h5>{{ money_piece.currency }}</h5>
+        </div>
+        <div class="col-sm-6">
+            <h5>{{ money_piece.quantity }}</h5>
+        </div>
+    </div>
+{% endfor %}
