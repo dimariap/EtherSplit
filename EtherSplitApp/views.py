@@ -92,6 +92,39 @@ def character_gear_page(request, character_slug):
 
 
 @login_required(login_url='/login/')
+def character_hp_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    # gear = Gear.objects.filter(character=character)  # uncomment if gear will add HP
+    user = request.user
+
+    context = {
+        'character': character,
+        # 'gear': gear,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            character_health_points = request.POST.get('character_' + str(character.id), None)
+            if character_health_points and character_health_points != character.health_points:
+                character.health_points = character_health_points
+                character.save(update_fields=['health_points'])
+
+            """for gear_piece in gear:
+                gear_piece_armor = request.POST.get('gear_' + str(gear_piece.id), None)
+                if gear_piece_armor and gear_piece_armor != gear_piece.armor:
+                    gear_piece.armor = gear_piece_armor
+                    gear_piece.save(update_fields=['armor'])"""
+
+        character_sessions = Session.objects.filter(group=user.groups.get())  # might error if multiple groups
+        most_recent_session = character_sessions.latest('date')  # get the most recent session
+
+        return redirect('/sessions/' + str(most_recent_session.id))
+
+    return render(request, 'character_pages/character_hp_page.html', context)
+
+
+@login_required(login_url='/login/')
 def character_ability_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
     abilities = Ability.objects.filter(character=character).order_by('is_super')

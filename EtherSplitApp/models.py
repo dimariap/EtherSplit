@@ -8,7 +8,7 @@ class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # TODO implement a custom user model
     name = models.CharField(max_length=32, unique=True)
     lucky_number = models.CharField(max_length=3, blank=True, default='')
-    hit_points = models.CharField(max_length=5, blank=True, default='')
+    health_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
     # maybe add race/gender or other racial attributes
@@ -117,7 +117,7 @@ class Item(models.Model):
 class Gear(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
-    hit_points = models.CharField(max_length=5, blank=True, default='')
+    health_points = models.CharField(max_length=5, blank=True, default='')
     armor = models.CharField(max_length=5, blank=True, default='')
     body_part = models.CharField(max_length=12, blank=True, default='', choices=(
         ('head', 'Head'),

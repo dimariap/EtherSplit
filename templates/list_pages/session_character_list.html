@@ -2,7 +2,7 @@
     <h3>Character</h3><hr />
 </div>
 <div class="col-sm-3" align="center">
-    <h3>Hit Points</h3><hr />
+    <h3>Health</h3><hr />
 </div>
 <div class="col-sm-3" align="center">
     <h3>Armor</h3><hr />
@@ -27,7 +27,13 @@
                     <div class="col-sm-3" align="center" {% if not character.is_alive %}
                          style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
                     {% endif %}>
-                        <h4>{{ character.hit_points }}</h4>
+                        <h4>
+                            {% if character.user == user or user.is_staff %}
+                                <a href="characters/{{ character.slug }}/hit-points">{{ character.health_points }}</a>
+                            {% else %}
+                                {{ character.health_points }}
+                            {% endif %}
+                        </h4>
                     </div>
                     <div class="col-sm-3" align="center" {% if not character.is_alive %}
                          style="text-decoration-line: line-through; text-decoration-color: #8c8c8c; font-style: italic"
