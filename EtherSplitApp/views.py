@@ -63,8 +63,6 @@ def character_gear_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
     gear = Gear.objects.filter(character=character)
     user = request.user
-    character_sessions = Session.objects.filter(group=user.groups.get())
-    most_recent_session = character_sessions.latest('date')
 
     context = {
         'character': character,
@@ -74,8 +72,13 @@ def character_gear_page(request, character_slug):
 
     if request.method == 'POST':
         if user == character.user or user.is_staff:
+            character_armor = request.POST.get('character_' + str(character.id), None)
+            if character_armor and character_armor != character.armor:
+                character.armor = character_armor
+                character.save(update_fields=['armor'])
+
             for gear_piece in gear:
-                gear_piece_armor = request.POST.get(str(gear_piece.id), None)
+                gear_piece_armor = request.POST.get('gear_' + str(gear_piece.id), None)
                 if gear_piece_armor and gear_piece_armor != gear_piece.armor:
                     gear_piece.armor = gear_piece_armor
                     gear_piece.save(update_fields=['armor'])

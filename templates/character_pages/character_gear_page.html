@@ -23,6 +23,22 @@
         {% csrf_token %}
             <div class="row">
                 <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <h4>Base Armor</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>
+                            {% if user == character.user or user.is_staff %}
+                                <div class="col-sm-3">
+                                    <input class="form-control" name="character_{{ character.id }}"
+                                           value="{{ character.armor }}"
+                                           placeholder="{{ character.armor }}" type="number">
+                                </div>
+                            {% else %}
+                                {{ character.armor }}
+                            {% endif %}
+                        </h4>
+                    </div>
                     {% for gear_piece in gear %}
                         <div class="col-sm-6">
                             <h4>{{ gear_piece.name }}</h4>
@@ -31,7 +47,7 @@
                             <h4>
                                 {% if user == character.user or user.is_staff %}
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="{{ gear_piece.id }}"
+                                        <input class="form-control" name="gear_{{ gear_piece.id }}"
                                                value="{{ gear_piece.armor }}"
                                                placeholder="{{ gear_piece.armor }}" type="number">
                                     </div>
