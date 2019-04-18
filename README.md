@@ -1,6 +1,6 @@
 # Ether Split
 
-An online user interface and database for a more organized and seemless session of Ether Split. Ether Split is a table-top adventure game, created and designed by a friend. This project's vision is to create a central location to store the data, integrate mechanics, and create an improved player experience by removing clutter and automating processes.
+An online user interface and database for a more organized and seamless session of Ether Split. Ether Split is a table-top adventure game, created and designed by a friend. This project's vision is to create a central location to store the data, integrate mechanics, and create an improved player experience by removing clutter and automating processes.
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ See also the list of [contributors](https://github.com/dimariap/EtherSplit/contr
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is currently unlicensed, as it is purely for recreational and educational purposes.
 
 ## Acknowledgments
 
