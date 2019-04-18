@@ -110,6 +110,16 @@ def character_hp_page(request, character_slug):
                 character.health_points = character_health_points
                 character.save(update_fields=['health_points'])
 
+                # change alive status from health point values
+                if int(character.health_points) > 0:
+                    character.is_alive = True
+                if int(character.health_points) < 0:
+                    character.health_points = '0'  # could make negative numbers represent undead
+                    character.save(update_fields=['health_points'])
+                if int(character.health_points) == 0:
+                    character.is_alive = False
+                character.save(update_fields=['is_alive'])
+
             """for gear_piece in gear:
                 gear_piece_armor = request.POST.get('gear_' + str(gear_piece.id), None)
                 if gear_piece_armor and gear_piece_armor != gear_piece.armor:

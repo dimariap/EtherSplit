@@ -8,8 +8,8 @@ class Character(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # TODO implement a custom user model
     name = models.CharField(max_length=32, unique=True)
     lucky_number = models.CharField(max_length=3, blank=True, default='')
-    health_points = models.CharField(max_length=5, blank=True, default='')
-    armor = models.CharField(max_length=5, blank=True, default='')
+    health_points = models.CharField(max_length=8, blank=True, default='')
+    armor = models.CharField(max_length=8, blank=True, default='')
     initiative = models.CharField(max_length=3, blank=True, default='')
     # maybe add race/gender or other racial attributes
     description = models.TextField(max_length=500, blank=True, default='')
@@ -55,9 +55,9 @@ class Ability(models.Model):
         ('self', 'Self'),
         ('target', 'Target'),
     ))
-    damage = models.CharField(max_length=4, blank=True, default='')
-    aoe_radius = models.CharField(max_length=4, blank=True, default='')
-    charges = models.CharField(max_length=4, blank=True, default='')
+    damage = models.CharField(max_length=8, blank=True, default='')
+    aoe_radius = models.CharField(max_length=8, blank=True, default='')
+    charges = models.CharField(max_length=8, blank=True, default='')
     cooldown = models.CharField(max_length=8, blank=True, default='', choices=(
                                     ('0', 'Instant'),
                                     ('1', '1 Turn'),
@@ -92,8 +92,8 @@ class Weapon(models.Model):
     name = models.CharField(max_length=32,)
     type = models.CharField(max_length=32, blank=True, default='')
     range = models.CharField(max_length=32, blank=True, default='')
-    damage = models.CharField(max_length=4, blank=True, default='')
-    ammo = models.CharField(max_length=5, blank=True, default='', help_text='Put \'melee\' if melee weapon.')
+    damage = models.CharField(max_length=8, blank=True, default='')
+    ammo = models.CharField(max_length=8, blank=True, default='', help_text='Put \'melee\' if melee weapon.')
     description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
@@ -104,9 +104,9 @@ class Weapon(models.Model):
 class Item(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
-    damage = models.CharField(max_length=4, blank=True, default='')
-    aoe_radius = models.CharField(max_length=4, blank=True, default='')
-    charges = models.CharField(max_length=4, blank=True, default='')
+    damage = models.CharField(max_length=8, blank=True, default='')
+    aoe_radius = models.CharField(max_length=8, blank=True, default='')
+    charges = models.CharField(max_length=8, blank=True, default='')
     description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
@@ -117,8 +117,8 @@ class Item(models.Model):
 class Gear(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     name = models.CharField(max_length=32,)
-    health_points = models.CharField(max_length=5, blank=True, default='')
-    armor = models.CharField(max_length=5, blank=True, default='')
+    health_points = models.CharField(max_length=8, blank=True, default='')
+    armor = models.CharField(max_length=8, blank=True, default='')
     body_part = models.CharField(max_length=12, blank=True, default='', choices=(
         ('head', 'Head'),
         ('chest', 'Chest'),
@@ -149,11 +149,11 @@ class Spell(models.Model):
         ('self', 'Self'),
         ('target', 'Target'),
     ))
-    damage = models.CharField(max_length=4, blank=True, default='')
-    aoe_radius = models.CharField(max_length=4, blank=True, default='')
-    mana_cost = models.CharField(max_length=4, blank=True, default='')
+    damage = models.CharField(max_length=8, blank=True, default='')
+    aoe_radius = models.CharField(max_length=8, blank=True, default='')
+    mana_cost = models.CharField(max_length=8, blank=True, default='')
     # TODO add cool down
-    duration = models.CharField(max_length=4, blank=True, default='', help_text='Number of turns the ability lasts.')
+    duration = models.CharField(max_length=8, blank=True, default='', help_text='Number of turns the ability lasts.')
     description = models.TextField(max_length=500, blank=True, default='')
     is_active = models.BooleanField(default=True)
 
@@ -163,7 +163,7 @@ class Spell(models.Model):
 
 class Money(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=6, blank=True, default='')
+    quantity = models.CharField(max_length=8, blank=True, default='')
     currency = models.CharField(max_length=32, blank=True, choices=(
         ('holla', 'Holla'),
         ('shi', 'Shi'),
