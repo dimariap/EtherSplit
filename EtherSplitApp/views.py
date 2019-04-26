@@ -157,6 +157,28 @@ def character_ability_page(request, character_slug):
 
 
 @login_required(login_url='/login/')
+def character_weapon_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    weapons = Weapon.objects.filter(character=character).order_by('name')
+    user = request.user
+
+    context = {
+        'character': character,
+        'weapons': weapons,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            for weapon in weapons:
+                print(weapon.name)  # subtract 1 (next turn button) from cooldown
+
+        return redirect('/characters/' + str(character.slug) + '/' + 'weapons')
+
+    return render(request, 'character_pages/character_weapon_page.html', context)
+
+
+@login_required(login_url='/login/')
 def rules(request):
     admin_rule_list = Rule.objects.all()
     user_rule_list = Rule.objects.filter(for_gm_only=False)
