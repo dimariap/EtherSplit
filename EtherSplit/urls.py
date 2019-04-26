@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^characters/(?P<character_slug>[\w-]+)/hit-points$', character_hp_page, name='character_hp_page'),
     url(r'^characters/(?P<character_slug>[\w-]+)/abilities$', character_ability_page, name='character_ability_page'),
     url(r'^characters/(?P<character_slug>[\w-]+)/weapons$', character_weapon_page, name='character_weapon_page'),
+    url(r'^characters/(?P<character_slug>[\w-]+)/spells$', character_spells_page, name='character_spells_page'),
     # authentication urls
     url(r'^login/$', signin),
     url(r'^logout/$', signout),
