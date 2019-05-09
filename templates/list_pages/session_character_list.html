@@ -67,8 +67,9 @@
             {% endif %}
         {% endfor %}
     <br />
-        <div class="col-sm-12" align="right">
+        {% if user == character.user or user.is_staff %}
+            <div class="col-sm-12" align="right">
             <button class="btn btn-primary" type="submit">Save</button>
-        </div>
+        {% endif %}
     </div>
 </form>
