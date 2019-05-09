@@ -11,17 +11,23 @@ from django.contrib import messages
 
 @login_required(login_url='/login/')
 def home(request):
+    groups = Group.objects.all().order_by('name')
     context = {
-
+        'groups': groups,
     }
     return render(request, 'home.html', context)
 
 
 @login_required(login_url='/login/')
-def group_characters(request):
-    user = User.objects.get(username=request.user.username)
-    group = user.groups.get()  # might error if user is in multiple groups
-    character_list = Character.objects.filter(is_active=True, user__groups=group).order_by('-name')
+def group_characters(request, group_id):
+    group = Group.objects.get(id=group_id)
+    npc, created = User.objects.get_or_create(username='NPC', defaults={'username': 'NPC'})
+    if created:
+        npc.groups.set(Group.objects.all())
+        npc.set_password('npc_password')
+        npc.save()
+        __set_npc_characters_without_a_user(npc)  # sets the characters without a user to npc user
+    character_list = Character.objects.filter(is_active=True, user__groups=group).exclude(user=npc).order_by('-name')
     context = {
         'group': group,
         'characters': character_list,
@@ -157,6 +163,50 @@ def character_ability_page(request, character_slug):
 
 
 @login_required(login_url='/login/')
+def character_weapon_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    weapons = Weapon.objects.filter(character=character).order_by('name')
+    user = request.user
+
+    context = {
+        'character': character,
+        'weapons': weapons,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            for weapon in weapons:
+                print(weapon.name)  # subtract 1 (next turn button) from cooldown
+
+        return redirect('/characters/' + str(character.slug) + '/' + 'weapons')
+
+    return render(request, 'character_pages/character_weapon_page.html', context)
+
+
+@login_required(login_url='/login/')
+def character_spells_page(request, character_slug):
+    character = Character.objects.get(slug=character_slug)
+    spells = Spell.objects.filter(character=character).order_by('name')
+    user = request.user
+
+    context = {
+        'character': character,
+        'spells': spells,
+        'user': user,
+    }
+
+    if request.method == 'POST':
+        if user == character.user or user.is_staff:
+            for spell in spells:
+                print(spell.name)  # subtract 1 (next turn button) from cooldown
+
+        return redirect('/characters/' + str(character.slug) + '/' + 'spells')
+
+    return render(request, 'character_pages/character_spells_page.html', context)
+
+
+@login_required(login_url='/login/')
 def rules(request):
     admin_rule_list = Rule.objects.all()
     user_rule_list = Rule.objects.filter(for_gm_only=False)
@@ -173,8 +223,7 @@ def rules(request):
 @login_required(login_url='/login/')
 def sessions(request):
     user = User.objects.get(username=request.user.username)
-    group = user.groups.get()  # might error if user is in multiple groups
-    session_list = Session.objects.filter(group=group).order_by('-date')
+    session_list = Session.objects.all().order_by('-date')
 
     context = {
         'sessions': session_list,
@@ -209,8 +258,7 @@ def new_session(request):
 @login_required(login_url='/login/')
 def session_page(request, session_id):
     session = Session.objects.get(id=session_id)
-    users = User.objects.get(groups=session.group)
-    characters = Character.objects.filter(user=users).order_by('-initiative', 'name')
+    characters = Character.objects.filter(user__groups=session.group).order_by('-initiative', 'name')
     user = request.user
 
     for character in characters:
@@ -329,3 +377,10 @@ def __update_alive_statuses(session, is_alive_list):
             else:
                 character.is_alive = False
             character.save(update_fields=['is_alive'])
+
+
+def __set_npc_characters_without_a_user(npc):
+    characters_without_user = User.objects.filter(username__isnull=True)
+    for character in characters_without_user:
+        character.user = npc
+        character.save(update_files=['user'])

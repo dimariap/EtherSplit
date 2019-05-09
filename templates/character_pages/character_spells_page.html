@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="row">
-            <h2>{{ character.name }}'s Abilities</h2>
+            <h2>{{ character.name }}'s Spells</h2>
         </div>
 
         <div class="row">
@@ -14,7 +14,7 @@
                     <h3>Name</h3>
                 </div>
                 <div class="col-sm-6">
-                    <h3>Cooldown</h3>
+                    <h3>Damage</h3>
                 </div>
             </div>
         </div>
@@ -22,21 +22,15 @@
 
         <div class="row">
             <div class="col-sm-12">
-                {% for ability in abilities %}
-                    {% if ability.is_super %}
-                        <div class="col-sm-12">
-                            <h3>Super</h3>
-                        </div>
-                    {% endif %}
-
+                {% for spell in spells %}
                     <div class="col-sm-6">
-                        <h4>{{ ability.name }}</h4>
+                        <h4>{{ spell.name }}</h4>
                     </div>
                     <div class="col-sm-6">
-                        <h4>{{ ability.get_cooldown_display }}</h4>
+                        <h4>{{ spell.damage }}</h4>
                     </div><br />
                     <div class="col-sm-12">
-                        <p>{{ ability.description }}</p>
+                        <p>{{ spell.description }}</p>
                     </div>
                 {% endfor %}
             </div>
