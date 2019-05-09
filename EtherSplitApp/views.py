@@ -11,17 +11,19 @@ from django.contrib import messages
 
 @login_required(login_url='/login/')
 def home(request):
+    groups = Group.objects.all().order_by('name')
     context = {
-
+        'groups': groups,
     }
     return render(request, 'home.html', context)
 
 
 @login_required(login_url='/login/')
-def group_characters(request):
+def group_characters(request, group_id):
     user = User.objects.get(username=request.user.username)
     group = user.groups.get()  # might error if user is in multiple groups
     character_list = Character.objects.filter(is_active=True, user__groups=group).order_by('-name')
+    # TODO change groups.get() so that it is gotten via clicking and not from the user
     context = {
         'group': group,
         'characters': character_list,
