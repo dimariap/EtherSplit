@@ -35,6 +35,10 @@ class MoneyAdmin(admin.ModelAdmin):
     list_display = ('character', 'quantity', 'currency')
 
 
+class CompanionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'user', 'health_points', 'armor', 'initiative', 'is_active', 'is_alive')
+
+
 class RuleAdmin(admin.ModelAdmin):
     pass
 
@@ -51,5 +55,6 @@ admin.site.register(Item, ItemAdmin)
 admin.site.register(Gear, GearAdmin)
 admin.site.register(Spell, SpellAdmin)
 admin.site.register(Money, MoneyAdmin)
+admin.site.register(Companion, CompanionAdmin)
 admin.site.register(Rule, RuleAdmin)
 admin.site.register(Session, SessionAdmin)

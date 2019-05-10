@@ -27,7 +27,8 @@ def group_characters(request, group_id):
         npc.set_password('npc_password')
         npc.save()
         __set_npc_characters_without_a_user(npc)  # sets the characters without a user to npc user
-    character_list = Character.objects.filter(is_active=True, user__groups=group).exclude(user=npc).order_by('-name')
+    character_list = Character.objects.filter(is_active=True, user__groups=group,
+                                              companion__isnull=True).exclude(user=npc).order_by('name')
     context = {
         'group': group,
         'characters': character_list,
@@ -46,7 +47,11 @@ def character_page(request, character_slug):
     gear = Gear.objects.filter(character=character)
     spells = Spell.objects.filter(character=character)
     money = Money.objects.filter(character=character)
-
+    companions = Companion.objects.filter(master=character)
+    is_companion = False
+    if character.name in Companion.objects.values_list('name', flat=True):
+        is_companion = True
+        character = Companion.objects.get(slug=character_slug)
     character.armor = __calculate_total_armor(character, gear)
 
     context = {
@@ -59,6 +64,7 @@ def character_page(request, character_slug):
         'gear': gear,
         'spells': spells,
         'money': money,
+        'companions': companions,
     }
 
     return render(request, 'character_page.html', context)

@@ -177,7 +177,12 @@ class Money(models.Model):
     class Meta:
         verbose_name_plural = 'Money'
 
-# TODO add companion class (define rules first)
+
+class Companion(Character):
+    master = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='+', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Rule(models.Model):
