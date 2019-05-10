@@ -30,7 +30,7 @@
                         <h4>{{ spell.damage }}</h4>
                     </div><br />
                     <div class="col-sm-12">
-                        <p>{{ spell.description }}</p>
+                        <p>{{ spell.description | linebreaks }}</p>
                     </div>
                 {% endfor %}
             </div>

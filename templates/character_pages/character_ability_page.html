@@ -36,7 +36,7 @@
                         <h4>{{ ability.get_cooldown_display }}</h4>
                     </div><br />
                     <div class="col-sm-12">
-                        <p>{{ ability.description }}</p>
+                        <p>{{ ability.description | linebreaks }}</p>
                     </div>
                 {% endfor %}
             </div>

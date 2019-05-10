@@ -5,33 +5,45 @@
 </div>
 
 <div class="row" id="character_stats">
-    <div class="col-sm-4" align="center">
+    <div class="col-sm-4" align="justify">
         <h4>
             {% for character_stat in character_stats %}
-                STR {{ character_stat.str }}<br /><br />
-                END {{ character_stat.end }}<br /><br />
-                SPD {{ character_stat.spd }}<br /><br />
-                AGI {{ character_stat.agi }}<br /><br />
+                <div class="col-sm-6" align="center">STR</div>
+                <div class="col-sm-6" align="center">{{ character_stat.str }}</div><br /><br />
+                <div class="col-sm-6" align="center">END</div>
+                <div class="col-sm-6" align="center">{{ character_stat.end }}</div><br /><br />
+                <div class="col-sm-6" align="center">SPD</div>
+                <div class="col-sm-6" align="center">{{ character_stat.spd }}</div><br /><br />
+                <div class="col-sm-6" align="center">AGI</div>
+                <div class="col-sm-6" align="center">{{ character_stat.agi }}</div><br /><br />
             {% endfor %}
         </h4>
     </div>
     <div class="col-sm-4" align="center">
         <h4>
             {% for character_stat in character_stats %}
-                COG {{ character_stat.cog }}<br /><br />
-                WIS {{ character_stat.wis }}<br /><br />
-                MAG {{ character_stat.mag }}<br /><br />
-                FLO {{ character_stat.flo }}<br /><br />
+                <div class="col-sm-6" align="center">COG</div>
+                <div class="col-sm-6" align="center">{{ character_stat.cog }}</div><br /><br />
+                <div class="col-sm-6" align="center">WIS</div>
+                <div class="col-sm-6" align="center">{{ character_stat.wis }}</div><br /><br />
+                <div class="col-sm-6" align="center">MAG</div>
+                <div class="col-sm-6" align="center">{{ character_stat.mag }}</div><br /><br />
+                <div class="col-sm-6" align="center">FLO</div>
+                <div class="col-sm-6" align="center">{{ character_stat.flo }}</div><br /><br />
             {% endfor %}
         </h4>
     </div>
     <div class="col-sm-4" align="center">
         <h4>
             {% for character_stat in character_stats %}
-                LUK {{ character_stat.luk }}<br /><br />
-                WIL {{ character_stat.wil }}<br /><br />
-                CHI {{ character_stat.chi }}<br /><br />
-                SYN {{ character_stat.syn }}<br /><br />
+                <div class="col-sm-6" align="center">LUK</div>
+                <div class="col-sm-6" align="center">{{ character_stat.luk }}</div><br /><br />
+                <div class="col-sm-6" align="center">WIL</div>
+                <div class="col-sm-6" align="center">{{ character_stat.wil }}</div><br /><br />
+                <div class="col-sm-6" align="center">CHI</div>
+                <div class="col-sm-6" align="center">{{ character_stat.chi }}</div><br /><br />
+                <div class="col-sm-6" align="center">SYN</div>
+                <div class="col-sm-6" align="center">{{ character_stat.syn }}</div><br /><br />
             {% endfor %}
         </h4>
     </div>

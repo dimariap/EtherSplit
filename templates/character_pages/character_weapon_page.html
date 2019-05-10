@@ -30,7 +30,7 @@
                         <h4>{{ weapon.damage }}</h4>
                     </div><br />
                     <div class="col-sm-12">
-                        <p>{{ weapon.description }}</p>
+                        <p>{{ weapon.description | linebreaks }}</p>
                     </div>
                 {% endfor %}
             </div>

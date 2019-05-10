@@ -121,6 +121,7 @@ class Gear(models.Model):
     armor = models.CharField(max_length=8, blank=True, default='')
     body_part = models.CharField(max_length=12, blank=True, default='', choices=(
         ('head', 'Head'),
+        ('neck', 'Neck'),
         ('chest', 'Chest'),
         ('left_arm', 'Left Arm'),
         ('right_arm', 'Right Arm'),
