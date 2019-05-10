@@ -121,6 +121,7 @@ class Gear(models.Model):
     armor = models.CharField(max_length=8, blank=True, default='')
     body_part = models.CharField(max_length=12, blank=True, default='', choices=(
         ('head', 'Head'),
+        ('neck', 'Neck'),
         ('chest', 'Chest'),
         ('left_arm', 'Left Arm'),
         ('right_arm', 'Right Arm'),
@@ -176,7 +177,12 @@ class Money(models.Model):
     class Meta:
         verbose_name_plural = 'Money'
 
-# TODO add companion class (define rules first)
+
+class Companion(Character):
+    master = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='+', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Rule(models.Model):

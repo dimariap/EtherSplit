@@ -3,7 +3,12 @@
     <div class="col-sm-2" align="center"><h3>Initiative</h3><hr /></div>
     <div class="col-sm-2" align="center"><h3>Health Points</h3><hr /></div>
     <div class="col-sm-2" align="center"><h3>Armor</h3><hr /></div>
-    <div class="col-sm-3" align="center"><h3>Lucky Number</h3><hr /></div>
+    {% if character.master %}
+        <div class="col-sm-3" align="center"><h3>Master</h3><hr /></div>
+    {% else %}
+        <div class="col-sm-3" align="center"><h3>Lucky Number</h3><hr /></div>
+    {% endif %}
+
 </div>
 
 <div class="row" id="character_overview">
@@ -11,5 +16,11 @@
     <div class="col-sm-2" align="center"><h4>{{ character.initiative }}</h4></div>
     <div class="col-sm-2" align="center"><h4>{{ character.health_points }}</h4></div>
     <div class="col-sm-2" align="center"><h4>{{ character.armor }}</h4></div>
-    <div class="col-sm-3" align="center"><h4>{{ character.lucky_number }}</h4></div>
+    {% if character.master %}
+        <div class="col-sm-3" align="center">
+            <h4><a href="characters/{{ character.master.slug }}">{{ character.master }}</a></h4>
+        </div>
+    {% else %}
+        <div class="col-sm-3" align="center"><h4>{{ character.lucky_number }}</h4></div>
+    {% endif %}
 </div>

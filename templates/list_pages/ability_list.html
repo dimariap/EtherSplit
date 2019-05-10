@@ -3,7 +3,7 @@
     {% if not ability.is_super %}
         <div class="col-sm-12">
             <h4>{{ ability.name }}</h4>
-            <p>{{ ability.description }}</p>
+            <p>{{ ability.description | linebreaks }}</p>
             <br />
         </div>
     {% endif %}

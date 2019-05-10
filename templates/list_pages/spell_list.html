@@ -2,7 +2,7 @@
 {% for spell in spells %}
     <div class="col-sm-12">
         <h4>{{ spell.name }}</h4>
-        <p>{{ spell.description }}</p>
+        <p>{{ spell.description | linebreaks }}</p>
         <br />
     </div>
 {% endfor %}

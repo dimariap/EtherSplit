@@ -1,0 +1,8 @@
+<hr />
+{% for companion in companions %}
+    <div class="col-sm-12">
+        <h4><a href="characters/{{ companion.slug }}">{{ companion.name }}</a></h4>
+        <p>{{ companion.description | linebreaks }}</p>
+        <br />
+    </div>
+{% endfor %}
