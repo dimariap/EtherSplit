@@ -18,7 +18,6 @@ from django.conf.urls import url
 from EtherSplitApp.views import *
 
 urlpatterns = [
-    url('admin/', admin.site.urls),
     url(r'^$', home, name='home'),
     url(r'^sessions/$', sessions, name='sessions'),
     url(r'^sessions/new-session/$', new_session, name='new_session'),
