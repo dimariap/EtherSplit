@@ -38,7 +38,6 @@ def group_characters(request, group_id):
 
 @login_required(login_url='/login/')
 def character_page(request, character_slug):
-    user = User.objects.get(username=request.user.username)
     character = Character.objects.get(slug=character_slug)
     character_stats = CharacterStats.objects.filter(character=character)
     abilities = Ability.objects.filter(character=character)
@@ -55,7 +54,7 @@ def character_page(request, character_slug):
     character.armor = __calculate_total_armor(character, gear)
 
     context = {
-        'user': user,
+        'user': character.user,
         'character': character,
         'character_stats': character_stats,
         'abilities': abilities,
