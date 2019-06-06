@@ -19,6 +19,18 @@ def home(request):
 
 
 @login_required(login_url='/login/')
+def all_characters(request):
+    npc, created = User.objects.get_or_create(username='NPC', defaults={'username': 'NPC'})
+    if created:
+        npc.groups.set(Group.objects.all())
+        npc.set_password('npc_password')
+        npc.save()
+        __set_npc_characters_without_a_user(npc)  # sets the characters without a user to npc user
+    characters = Character.objects.filter(is_active=True).exclude(user=npc).order_by('name')
+    return render(request, 'all_characters.html', {'characters': characters})
+
+
+@login_required(login_url='/login/')
 def group_characters(request, group_id):
     group = Group.objects.get(id=group_id)
     npc, created = User.objects.get_or_create(username='NPC', defaults={'username': 'NPC'})
@@ -40,16 +52,14 @@ def group_characters(request, group_id):
 def character_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
     character_stats = CharacterStats.objects.filter(character=character)
-    abilities = Ability.objects.filter(character=character)
-    weapons = Weapon.objects.filter(character=character)
-    items = Item.objects.filter(character=character)
-    gear = Gear.objects.filter(character=character)
-    spells = Spell.objects.filter(character=character)
-    money = Money.objects.filter(character=character)
-    companions = Companion.objects.filter(master=character)
-    is_companion = False
+    abilities = Ability.objects.filter(character=character).order_by('name')
+    weapons = Weapon.objects.filter(character=character).order_by('name')
+    items = Item.objects.filter(character=character).order_by('name')
+    gear = Gear.objects.filter(character=character).order_by('name')
+    spells = Spell.objects.filter(character=character).order_by('name')
+    money = Money.objects.filter(character=character).order_by('name')
+    companions = Companion.objects.filter(master=character).order_by('name')
     if character.name in Companion.objects.values_list('name', flat=True):
-        is_companion = True
         character = Companion.objects.get(slug=character_slug)
     character.armor = __calculate_total_armor(character, gear)
 
@@ -72,7 +82,7 @@ def character_page(request, character_slug):
 @login_required(login_url='/login/')
 def character_gear_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
-    gear = Gear.objects.filter(character=character)
+    gear = Gear.objects.filter(character=character).order_by('name')
     user = request.user
 
     context = {
@@ -148,7 +158,7 @@ def character_hp_page(request, character_slug):
 @login_required(login_url='/login/')
 def character_ability_page(request, character_slug):
     character = Character.objects.get(slug=character_slug)
-    abilities = Ability.objects.filter(character=character).order_by('is_super')
+    abilities = Ability.objects.filter(character=character).order_by('is_super', 'name')
     user = request.user
 
     context = {
