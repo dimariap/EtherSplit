@@ -179,7 +179,7 @@ class Money(models.Model):
 
 
 class Companion(Character):
-    master = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='+', null=True, blank=True)
+    master = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='+')
 
     def __str__(self):
         return self.name
