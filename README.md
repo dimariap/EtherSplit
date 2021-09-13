@@ -2,7 +2,7 @@
 
 An online user interface and database for a more organized and seamless session of Ether Split. Ether Split is a table-top adventure game, created and designed by a friend. This project's vision is to create a central location to store the data, integrate mechanics, and create an improved player experience by removing clutter and automating processes.
 
-An example of the functioning code can be found here: peterdimaria.com/
+An example of the functioning code can be found here: www.peterdimaria.com/
 
 ## Getting Started
 
